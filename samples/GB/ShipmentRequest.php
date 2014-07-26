@@ -93,4 +93,4 @@ $sample->LabelImageFormat = 'PDF';
 
 // Call DHL XML API
 $client = new WebserviceClient();
-echo $client->call('track', $sample);
+echo $client->call($sample);

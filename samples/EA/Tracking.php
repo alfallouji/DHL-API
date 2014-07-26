@@ -19,4 +19,4 @@ echo $request->toXML();
 
 
 $client = new WebserviceClient();
-echo $client->track($request);
+echo $client->call($request);

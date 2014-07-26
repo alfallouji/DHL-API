@@ -10,19 +10,15 @@ class Web
 {
     /**
      * Urls to services
-     * @var array
+     * @var string
      */
-    private $_stagingUrls = array(
-        'track' => 'https://xmlpitest-ea.dhl.com/XMLShippingServlet',
-    );
+    private $_stagingUrls = 'https://xmlpitest-ea.dhl.com/XMLShippingServlet';
 
     /**
      * Urls to services
-     * @var array
+     * @var string
      */
-    private $_productionUrls = array(
-        'track' => 'https://xmlpi-ea.dhl.com/XMLShippingServlet',
-    );
+    private $_productionUrls = 'https://xmlpi-ea.dhl.com/XMLShippingServlet';
 
     /**
      * Use production server or staging
@@ -45,61 +41,13 @@ class Web
     }
 
     /**
-     * Track a shipment
-     * @param Request $request Request to send
-     *
-     * @return string DHL XML Response
-     */
-    public function track(Request $request)
-    {
-        $response = $this->_callService('track', $request);
-
-        return $response;
-    }
-
-    /**
-     * Call DHL API for a specific operation
-     * 
-     * @param string $call Call to perform
-     * @param Request $request Request to send
-     *
-     * @return string DHL XML Response
-     */
-    public function call($call, Request $request)
-    {
-        $response = $this->_callService('track', $request);
-
-        return $response;
-    }
-
-
-    /**
-     * Get url associated to a specific service
-     * 
-     * @param string $serviceName Name of the service
-     * 
-     * @return string URL for the service
-     */
-    private function _getUrl($serviceName) 
-    {
-        $urls = ('staging' == $this->_mode) ? $this->_stagingUrls : $this->_productionUrls;
-        if (!array_key_exists($serviceName, $urls)) 
-        {
-            throw new \InvalidArgumentException('No url associated with type : ' . $serviceName);
-        }
-
-        return $urls[$serviceName];
-    }
-
-    /**
      * Call DHL Service
      * 
-     * @param string $serviceName Name of the service
      * @param Request $request Request to send
      * 
      * @return string DHL XML response string
      */
-    private function _callService($serviceName, Request $request)
+    public function call(Request $request)
     {
 	    if (!$ch = curl_init())
 		{
@@ -124,5 +72,21 @@ class Web
         }
 
         return $result;
+    }
+
+    /**
+     * Get url associated to a specific service
+     * 
+     * @return string URL for the service
+     */
+    private function _getUrl()
+    {
+        $urls = ('staging' == $this->_mode) ? $this->_stagingUrls : $this->_productionUrls;
+        if (!array_key_exists($serviceName, $urls)) 
+        {
+            throw new \InvalidArgumentException('No url associated with type : ' . $serviceName);
+        }
+
+        return $urls[$serviceName];
     }
 }
