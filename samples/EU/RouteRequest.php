@@ -35,17 +35,17 @@ $sample->MessageTime = '2013-08-04T11:28:56.000-08:00';
 $sample->MessageReference = '1234567890123456789012345678901';
 $sample->SiteID = $config['id'];
 $sample->Password = $config['pass'];
-$sample->RegionCode = 'AM';
+$sample->RegionCode = 'EU';
 $sample->RequestType = 'O';
-$sample->Address1 = 'Suit 333';
-$sample->Address2 = '333 Twin';
-$sample->Address3 = '';
-$sample->PostalCode = '94089';
-$sample->City = 'North Dakhota';
-$sample->Division = 'California';
-$sample->CountryCode = 'US';
-$sample->CountryName = 'United States of America';
-$sample->OriginCountryCode = 'US';
+$sample->Address1 = 'Oracle Parkway,';
+$sample->Address2 = 'Thames Valley Park (TVP)';
+$sample->Address3 = 'Berkshire';
+$sample->PostalCode = 'RG6 1RA';
+$sample->City = 'Reading';
+$sample->Division = 'RE';
+$sample->CountryCode = 'GB';
+$sample->CountryName = 'United Kingdom';
+$sample->OriginCountryCode = 'GB';
 
 // Call DHL XML API
 echo $sample->toXML();
