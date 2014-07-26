@@ -89,6 +89,15 @@ abstract class Base
      */
     protected $_isSubobject = null;
 
+    /**
+     * @var boolean
+     * Render the schema version or not
+     */
+    protected $_displaySchemaVersion = false;
+
+    /**
+     * Class constants
+     */
     const DHL_REQ = 'http://www.dhl.com';
     const DHL_XSI = 'http://www.w3.org/2001/XMLSchema-instance';
 
@@ -119,7 +128,11 @@ abstract class Base
         $xmlWriter->writeAttribute('xmlns:req', self::DHL_REQ);
         $xmlWriter->writeAttribute('xmlns:xsi', self::DHL_XSI);
         $xmlWriter->writeAttribute('xsi:schemaLocation', self::DHL_REQ . ' ' .$this->_serviceXSD);
-        $xmlWriter->writeAttribute('schemaVersion', '1.0');
+    
+        if ($this->_displaySchemaVersion) 
+        {
+            $xmlWriter->writeAttribute('schemaVersion', '1.0');
+        }
 
         $xmlWriter->startElement('Request');
         $xmlWriter->startElement('ServiceHeader');

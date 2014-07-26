@@ -78,7 +78,7 @@ class Web
 		}
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $this->_getUrl($serviceName));
+        curl_setopt($ch, CURLOPT_URL, $this->_getUrl());
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_PORT , 443);
@@ -104,12 +104,6 @@ class Web
      */
     private function _getUrl()
     {
-        $urls = ('staging' == $this->_mode) ? $this->_stagingUrls : $this->_productionUrls;
-        if (!array_key_exists($serviceName, $urls)) 
-        {
-            throw new \InvalidArgumentException('No url associated with type : ' . $serviceName);
-        }
-
-        return $urls[$serviceName];
+        return ('staging' == $this->_mode) ? $this->_stagingUrls : $this->_productionUrls;
     }
 }

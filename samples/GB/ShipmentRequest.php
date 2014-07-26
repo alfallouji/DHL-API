@@ -33,8 +33,8 @@ $sample = new ShipmentRequest();
 // Set values of the request
 $sample->MessageTime = '2001-12-17T09:30:47-05:00';
 $sample->MessageReference = '1234567890123456789012345678901';
-$sample->SiteID = 'id';
-$sample->Password = 'pass';
+$sample->SiteID = $config['id'];
+$sample->Password = $config['pass'];
 $sample->RegionCode = 'AM';
 $sample->RequestedPickupTime = 'Y';
 $sample->NewShipper = 'Y';
@@ -115,5 +115,6 @@ $sample->EProcShip = 'N';
 $sample->LabelImageFormat = 'PDF';
 
 // Call DHL XML API
+echo $sample->toXML();
 $client = new WebserviceClient();
 echo $client->call($sample);

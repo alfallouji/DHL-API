@@ -49,6 +49,12 @@ class ShipmentRequest extends Base
     protected $_serviceXSD = 'ShipmentRequest.xsd';
 
     /**
+     * Display the schema version
+     * @var boolean
+     */
+    protected $_displaySchemaVersion = true;
+
+    /**
      * Parameters to be send in the body
      * @var array
      */
