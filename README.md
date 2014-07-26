@@ -42,9 +42,9 @@ This library is a PHP Oriented Object client for the DHL XML Services. DHL XML S
 
 This client does not rely or depend on any framework and it should be fairly easy to integrate with your own code. You can use the autloader that is provided or your own autoloading mechanism.
 
-The sample folder contains some example on how to use the client.
+The sample folder contains examples on how to use the client.
 
-In order to have the sample working, you will need to create a DHL staging account and then you need to edit the config/config.php file accordingly. The samples are loading it.
+In order to have the samples working, you will need to create a DHL staging account and then you need to edit the config/config.php file accordingly. The samples use those credentials.
 
 ```
 return array(
