@@ -72,10 +72,10 @@ class Web
      */
     public function call(Request $request)
     {
-	    if (!$ch = curl_init())
-		{
+        if (!$ch = curl_init())
+        {
             throw new \Exception('could not initialize curl');
-		}
+        }
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_URL, $this->_getUrl());
