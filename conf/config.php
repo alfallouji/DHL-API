@@ -10,7 +10,6 @@
  *  e.g. conf/config-production.php | conf/config-staging.php | conf/config-commondev.php
  *
  * @project DHL
- * @copyright SSense
  */
 return array(
 );
