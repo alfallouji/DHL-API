@@ -1,20 +1,20 @@
     
-AUTHORS & CONTACT
-=================
+## AUTHORS & CONTACT
+
 
 Al-Fallouji Bashar 
     - bashar@alfallouji.com
 
     
-DOCUMENTATION & DOWNLOAD
-========================
+## DOCUMENTATION & DOWNLOAD
+
 
 Latest version is available on github at :
     - http://github.com/alfallouji/DHL-API/
 
 
-LICENSE
-=======
+## LICENSE
+
 
 This Code is released under the GNU LGPL
 
@@ -32,8 +32,8 @@ or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU Lesser General Public License for more details.
 
 
-DESCRIPTION
-===========
+## DESCRIPTION
 
-This library provides a PHP client for the DHL XML Services. DHL XML Services is an online web services integration capability that provides DHL’s service availability, transit times, rates, shipment and courier pickup booking along with shipment tracking from over 140 countries around the world. Using DHL’s XML Services, customers can incorporate DHL shipping functionality into their websites, customer service applications or order processing systems.
+
+This library is a PHP Oriented Object client for the DHL XML Services. DHL XML Services is an online web services integration capability that provides DHL’s service availability, transit times, rates, shipment and courier pickup booking along with shipment tracking from over 140 countries around the world. Using DHL’s XML Services, customers can incorporate DHL shipping functionality into their websites, customer service applications or order processing systems.
 
