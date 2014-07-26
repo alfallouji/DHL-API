@@ -1,0 +1,256 @@
+<?php
+namespace DHL\Datatype;
+
+/**
+ * Abstract class for each datatype used by the models by DHL
+ */
+abstract class Base
+{
+    /**
+     * Properties definitions
+     * @var array
+     */
+    protected $_params = array();
+
+    /**
+     * Property values bag
+     * @var array
+     */
+    private $_values = array();
+
+    /**
+     * Class constructor
+     */ 
+    public function __construct()
+    {
+        $this->initializeValues();
+    }
+
+    /**
+     * Check if current object is empty or not
+     * 
+     * @return boolean True if it is, false otherwise
+     */
+    public function isEmpty()
+    {
+        foreach ($this->_values as $k => $v) 
+        {
+            if (is_object($v))
+            {
+                if (!$v->isEmpty()) 
+                { 
+                    return false;
+                }
+            }
+            elseif ($v !== null)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Generates the XML to be sent to DHL
+     * 
+     * @param \XMLWriter $xmlWriter XMl Writer instance
+     * 
+     * @return void
+     */
+    public function toXML(\XMLWriter $xmlWriter)
+    {
+        if ($this->isEmpty())
+        {
+            return;
+        }
+
+        $displayedParentNode = false;
+        $this->validateParameters();
+
+        $parts = explode('\\', get_class($this));
+        $parentNode = array_pop($parts);
+
+        $xmlWriter->startElement($parentNode);
+        foreach ($this->_params as $name => $infos) 
+        {
+            if ($this->$name) 
+            {
+                if (is_object($this->$name)) 
+                {
+                    $this->$name->toXML($xmlWriter);
+                }
+                else
+                {
+                    $xmlWriter->writeElement($name, $this->$name);
+                }
+            }
+        }
+
+        $xmlWriter->endElement(); // End of parent node
+    }
+
+    /**
+     * Magic getter function
+     * 
+     * @param string $key Key to get
+     * 
+     * @return mixed Value of the property 
+     * @throws \InvalidArgumentException Throws exceptin if key is not valid
+     */
+    final public function __get($key) 
+    {
+        if (!array_key_exists($key, $this->_values))
+        {
+            throw new \InvalidArgumentException('Field : ' . $key . ' is not defined for this object');
+        }
+
+        return $this->_values[$key];
+    }
+
+    /**
+     * Magic setter function
+     * 
+     * @param string $key Key to set
+     * @param mixed $value Value to set
+     * 
+     * @return void
+     * @throws \InvalidArgumentException Throws exception if key is not valid
+     */
+    final public function __set($key, $value) 
+    {
+        if (!array_key_exists($key, $this->_values))
+        {
+            throw new \InvalidArgumentException('Field : ' . $key . ' is not defined for this object');
+        }
+
+        $this->validateParameterType($key, $value);
+        $this->validateParameterValue($key, $value);
+        $this->_values[$key] = $value;
+    }
+ 
+    /**
+     * Initialize property values bag
+     *
+     * @return void
+     */
+    final private function initializeValues()
+    {
+        foreach ($this->_params as $name => $infos) 
+        {
+            if (isset($infos['subobject']) && $infos['subobject'])
+            {
+                $tmp = get_class($this);
+                $parts = explode('\\', $tmp);
+                array_pop($parts);
+                $className = implode('\\', $parts) . '\\' . $infos['type'];
+                $this->_values[$name] = new $className();
+            }
+            else
+            {
+                $this->_values[$name] = null;
+            }
+        }
+    }
+
+    /**
+     * Validate all parameters
+     * 
+     * @return boolean True upon success
+     * @throws \InvalidArgumentException Throws exception if type not valid or if value are missing
+     */
+    protected function validateParameters()
+    {
+        return true;
+
+        foreach ($this->_params as $name => $infos) 
+        {
+            if (isset($infos['required']) && true === $infos['required'] && $this->_values[$name] === null)
+            {
+                throw new \InvalidArgumentException('Field ' . $name . ' has no value');
+            }
+
+            if ($this->_values[$name]) 
+            {
+                $this->validateParameterType($name, $this->_values[$name]);
+                $this->validateParameterValue($name, $this->_values[$name]);
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Validate the type of a parameter
+     * 
+     * @param string $key Key to check
+     * @param mixed $value Value to check
+     * 
+     * @return boolean True upon success
+     * @throws \InvalidArgumentException Throws exception if type is not valid
+     */
+    protected function validateParameterType($key, $value)
+    {
+        switch ($this->_params[$key]['type']) 
+        {
+            case 'string':
+                if ($value !== (string) $value)
+                {
+                    throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : ' . $this->_params[$key]['type'] . ' but it has a value of : ' . $value);
+                }
+            break;
+
+            case 'date-iso8601':
+                $timestamp = strtotime($value);
+                $date = date(DATE_ISO8601, $timestamp);
+                if (strtotime($date) !== strtotime($value))
+                {
+                    throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : ' . $this->_params[$key]['type'] . ' but it has a value of : ' . $value);
+                }
+            break;
+
+            case 'integer':
+                 if (!filter_var($value, FILTER_VALIDATE_INTEGER)) 
+                 {
+                     throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : ' . $this->_params[$key]['type'] . ' but it has a value of : ' . $value);
+                 }
+            break;
+
+            default:
+               // throw new \InvalidArgumentException('Field ' . $key . ' has an invalid type definition : ' . $this->_params[$key]['type']);
+            break;
+        }
+
+        return true;
+    }
+
+    /**
+     * Validate the value of a parameter
+     * 
+     * @param string $key Key to check
+     * @param mixed $value Value to check
+     * 
+     * @return boolean True upon success
+     * @throws \InvalidArgumentException Throws exception if value is not valid
+     */
+    protected function validateParameterValue($key, $value)
+    {
+        if (isset($this->_params[$key]['acceptedValues']))
+        {
+            $acceptedValues = explode(',', $this->_params[$key]['acceptedValues']);
+            if (!in_array($value, $acceptedValues)) 
+            {
+                throw new \InvalidArgumentException('Field ' . $key . ' cannot be set to value : ' . $value . '. Accepted values are : ' . $this->_params[$key]['acceptedValues']);
+            }
+        }
+        if (isset($this->_params[$key]['size']))
+        {
+            if (strlen($value) < $this->_params[$key]['size'])
+            {
+                throw new \InvalidArgumentException('Field ' . $key . ' has a size of ' . strlen($value) . ' and it should be that size : ' . $this->_params[$key]['size']);
+            }
+        }
+
+        return true;
+    }
+}
