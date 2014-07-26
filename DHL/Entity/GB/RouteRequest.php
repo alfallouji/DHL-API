@@ -49,6 +49,12 @@ class RouteRequest extends Base
     protected $_serviceXSD = 'RouteRequest.xsd';
 
     /**
+     * Display Schema version or not
+     * @var boolean 
+     */
+    protected $_displaySchemaVersion = true;
+
+    /**
      * Parameters to be send in the body
      * @var array
      */
