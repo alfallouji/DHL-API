@@ -32,16 +32,16 @@ use DHL\Entity\Base as Request;
 class Web
 {
     /**
-     * Urls to services
+     * Url to services
      * @var string
      */
-    private $_stagingUrls = 'https://xmlpitest-ea.dhl.com/XMLShippingServlet';
+    private $_stagingUrl = 'https://xmlpitest-ea.dhl.com/XMLShippingServlet';
 
     /**
-     * Urls to services
+     * Url to services
      * @var string
      */
-    private $_productionUrls = 'https://xmlpi-ea.dhl.com/XMLShippingServlet';
+    private $_productionUrl = 'https://xmlpi-ea.dhl.com/XMLShippingServlet';
 
     /**
      * Use production server or staging
@@ -104,6 +104,6 @@ class Web
      */
     private function _getUrl()
     {
-        return ('staging' == $this->_mode) ? $this->_stagingUrls : $this->_productionUrls;
+        return ('staging' == $this->_mode) ? $this->_stagingUrl : $this->_productionUrl;
     }
 }
