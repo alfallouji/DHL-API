@@ -39,7 +39,7 @@ abstract class Base
      * Property values bag
      * @var array
      */
-    private $_values = array();
+    protected $_values = array();
 
     /**
      * Class constructor
@@ -81,7 +81,7 @@ abstract class Base
      * 
      * @return void
      */
-    public function toXML(\XMLWriter $xmlWriter)
+    public function toXML(\XMLWriter $xmlWriter = null)
     {
         if ($this->isEmpty())
         {
@@ -157,7 +157,7 @@ abstract class Base
      *
      * @return void
      */
-    final private function initializeValues()
+    protected function initializeValues()
     {
         foreach ($this->_params as $name => $infos) 
         {
@@ -184,15 +184,8 @@ abstract class Base
      */
     protected function validateParameters()
     {
-        return true;
-
         foreach ($this->_params as $name => $infos) 
         {
-            if (isset($infos['required']) && true === $infos['required'] && $this->_values[$name] === null)
-            {
-                throw new \InvalidArgumentException('Field ' . $name . ' has no value');
-            }
-
             if ($this->_values[$name]) 
             {
                 $this->validateParameterType($name, $this->_values[$name]);
