@@ -35,14 +35,14 @@ See the GNU Lesser General Public License for more details.
 ## DESCRIPTION
 
 
-This library is a PHP Oriented Object client for the DHL XML Services. DHL XML Services is an online web services integration capability that provides DHL’s service availability, transit times, rates, shipment and courier pickup booking along with shipment tracking from over 140 countries around the world. Using DHL’s XML Services, customers can incorporate DHL shipping functionality into their websites, customer service applications or order processing systems.
+This library is a PHP Oriented Object client for the DHL XML API Services. DHL XML Services is an online web services integration capability that provides DHL’s service availability, transit times, rates, shipment and courier pickup booking along with shipment tracking from over 140 countries around the world. Using DHL’s XML Services, customers can incorporate DHL shipping functionality into their websites, customer service applications or order processing systems.
 
 
 ## USAGE
 
 This client does not rely or depend on any framework and it should be fairly easy to integrate with your own code. You can use the autloader that is provided or your own autoloading mechanism.
 
-The sample folder contains examples on how to use the client.
+The sample folder contains examples on how to use the client and perform requests to DHL XML API, such as track a shipment, create a shipment, request a pickup or print labels.
 
 In order to have the samples working, you will need to create a DHL staging account. You can do that by going to that URL : http://www.dhl.com.au/en/express/resource_center/integrated_shipping_solutions/integrating_xml_services.html
 
