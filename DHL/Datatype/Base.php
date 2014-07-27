@@ -240,7 +240,6 @@ abstract class Base
             break;
 
             default:
-               // throw new \InvalidArgumentException('Field ' . $key . ' has an invalid type definition : ' . $this->_params[$key]['type']);
             break;
         }
 
@@ -258,19 +257,38 @@ abstract class Base
      */
     protected function validateParameterValue($key, $value)
     {
-        if (isset($this->_params[$key]['acceptedValues']))
+        foreach ($this->_params[$key] as $type => $typeValue) 
         {
-            $acceptedValues = explode(',', $this->_params[$key]['acceptedValues']);
-            if (!in_array($value, $acceptedValues)) 
+            switch ($type) 
             {
-                throw new \InvalidArgumentException('Field ' . $key . ' cannot be set to value : ' . $value . '. Accepted values are : ' . $this->_params[$key]['acceptedValues']);
-            }
-        }
-        if (isset($this->_params[$key]['size']))
-        {
-            if (strlen($value) < $this->_params[$key]['size'])
-            {
-                throw new \InvalidArgumentException('Field ' . $key . ' has a size of ' . strlen($value) . ' and it should be that size : ' . $this->_params[$key]['size']);
+                case 'enumeration':
+                    $acceptedValues = explode(',', $typeValue);
+                    if (!in_array($value, $acceptedValues)) 
+                    {
+                        throw new \InvalidArgumentException('Field ' . $key . ' cannot be set to value : ' . $value . '. Accepted values are : ' . $typeValue);
+                    }
+                break;
+           
+                case 'length':
+                    if (strlen($value) < $typeValue)
+                    {
+                        throw new \InvalidArgumentException('Field ' . $key . ' has a size of ' . strlen($value) . ' and it should be that size : ' . $typeValue);
+                    }
+                break;
+
+                case 'maxLength':
+                    if (strlen($value) > $typeValue)
+                    {
+                        throw new \InvalidArgumentException('Field ' . $key . ' has a size of ' . strlen($value) . ' and it cannot exceed this size : ' . $typeValue);
+                    }
+                break;
+
+                case 'minLength':
+                    if (strlen($value) < $typeValue)
+                    {
+                        throw new \InvalidArgumentException('Field ' . $key . ' has a size of ' . strlen($value) . ' and it cannot be less than this size : ' . $typeValue);
+                    }
+                break;
             }
         }
 
