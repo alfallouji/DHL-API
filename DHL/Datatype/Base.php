@@ -263,7 +263,7 @@ abstract class Base
                 break;
            
                 case 'length':
-                    if (strlen($value) < $typeValue)
+                    if (strlen($value) != $typeValue)
                     {
                         throw new \InvalidArgumentException('Field ' . $key . ' has a size of ' . strlen($value) . ' and it should be that size : ' . $typeValue);
                     }
