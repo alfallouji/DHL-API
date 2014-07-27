@@ -282,6 +282,20 @@ abstract class Base
                         throw new \InvalidArgumentException('Field ' . $key . ' has a size of ' . strlen($value) . ' and it cannot be less than this size : ' . $typeValue);
                     }
                 break;
+ 
+                case 'minInclusive':
+                    if ($value < $typeValue)
+                    {
+                        throw new \InvalidArgumentException('Field ' . $key . ' cannot be smaller than ' . $typeValue);
+                    }
+                break;
+ 
+                case 'maxInclusive':
+                    if ($value > $typeValue)
+                    {
+                        throw new \InvalidArgumentException('Field ' . $key . ' cannot be higher than ' . $typeValue);
+                    }
+                break;
             }
         }
 
