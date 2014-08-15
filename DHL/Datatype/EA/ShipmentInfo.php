@@ -76,12 +76,12 @@ class ShipmentInfo extends Base
         'ShipmentDate' => array(
             'type' => 'dateTime',
             'required' => false,
-            'subobject' => true,
+            'subobject' => false,
         ), 
         'Pieces' => array(
-            'type' => '',
+            'type' => 'string',
             'required' => false,
-            'subobject' => true,
+            'subobject' => false,
         ), 
         'Weight' => array(
             'type' => 'string',

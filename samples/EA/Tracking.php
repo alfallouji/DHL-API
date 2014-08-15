@@ -40,4 +40,8 @@ $request->PiecesEnabled = 'S';
 
 echo $request->toXML();
 $client = new WebserviceClient();
-echo $client->call($request);
+$xml = $client->call($request);
+
+$result = new DHL\Entity\EA\TrackingResponse();
+$result->initFromXML($xml);
+echo $result->toXML();

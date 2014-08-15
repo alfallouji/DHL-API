@@ -103,6 +103,15 @@ abstract class Base
                 {
                     $this->$name->toXML($xmlWriter);
                 }
+                elseif (is_array($this->$name)) 
+                {
+                    $xmlWriter->startElement($name);
+                    foreach ($this->$name as $subelement) 
+                    {
+                        $subelement->toXML($xmlWriter);
+                    }
+                    $xmlWriter->endElement();
+                }
                 else
                 {
                     $xmlWriter->writeElement($name, $this->$name);
@@ -113,6 +122,72 @@ abstract class Base
         $xmlWriter->endElement(); // End of parent node
     }
 
+    /**
+     * Initialize object from an XML string
+     * 
+     * @param string $xml XML String
+     * 
+     * @return void
+     */
+    public function initFromXML($xml) 
+    {
+        $xml = simplexml_load_string(str_replace('req:', '', $xml));
+        $parts = explode('\\', get_class($this));
+        $className = array_pop($parts);
+        foreach ($xml->children() as $child) 
+        {            
+            switch ($child->getName())
+            {
+                case 'Response':
+                break;
+
+                default:
+                    foreach($this->_params as $key => $infos)
+                    {
+                        if (is_object($this->$key))
+                        {
+                            $this->$key->initFromXml($child->asXML());
+                        }
+                        else 
+                        {
+                            if (isset($child->$key)) 
+                            {
+                                $this->$key = (string) $child->$key;
+                            }
+                        }
+                    }
+                break;
+            }
+        }
+    }
+
+    /**
+     * Setter for multivalues field
+     * 
+     * @param string $key Key to set
+     * @param mixed $value Value to set
+     * 
+     * @return void
+     * @throws \InvalidArgumentException Throws exception if key is not valid
+     */
+    public function __call($name, $arguments) 
+    {
+        $key = str_replace('add', '', $name);
+        $key .= 's';
+
+        if (!array_key_exists($key, $this->_values))
+        {
+            throw new \InvalidArgumentException('Multivalues setter for field : ' . $key . ' is not defined for this object');
+        }
+
+        if (empty($arguments) && count($arguments) > 1) 
+        {
+            throw new \InvalidArgumentException($name . ' method takes only 1 argument');
+        }
+
+        $this->$key = $arguments[0];
+    }
+ 
     /**
      * Magic getter function
      * 
@@ -149,7 +224,15 @@ abstract class Base
 
         $this->validateParameterType($key, $value);
         $this->validateParameterValue($key, $value);
-        $this->_values[$key] = $value;
+        
+        if (isset($this->_params[$key]['multivalues']) && $this->_params[$key]['multivalues'])
+        {
+            $this->_values[$key][] = $value;
+        }
+        else
+        {
+            $this->_values[$key] = $value;
+        }
     }
  
     /**
@@ -161,7 +244,11 @@ abstract class Base
     {
         foreach ($this->_params as $name => $infos) 
         {
-            if (isset($infos['subobject']) && $infos['subobject'])
+            if (isset($infos['multivalues']) && $infos['multivalues']) 
+            {
+                $this->_values[$name] = array();
+            }
+            elseif (isset($infos['subobject']) && $infos['subobject'])
             {
                 $tmp = get_class($this);
                 $parts = explode('\\', $tmp);
@@ -188,8 +275,19 @@ abstract class Base
         {
             if ($this->_values[$name]) 
             {
-                $this->validateParameterType($name, $this->_values[$name]);
-                $this->validateParameterValue($name, $this->_values[$name]);
+                if (is_array($this->_values[$name])) 
+                {
+                    foreach ($this->_values[$name] as $value)
+                    {
+                        $this->validateParameterType($name, $value);
+                        $this->validateParameterValue($name, $value);
+                    }
+                }
+                else 
+                {
+                    $this->validateParameterType($name, $this->_values[$name]);
+                    $this->validateParameterValue($name, $this->_values[$name]);
+                }
             }
         }
 
@@ -216,6 +314,7 @@ abstract class Base
                 }
             break;
 
+            case 'datetime':
             case 'date-iso8601':
                 $timestamp = strtotime($value);
                 $date = date(DATE_ISO8601, $timestamp);
@@ -226,13 +325,24 @@ abstract class Base
             break;
 
             case 'integer':
-                 if (!filter_var($value, FILTER_VALIDATE_INTEGER)) 
+                 if (!filter_var($value, FILTER_VALIDATE_INT)) 
                  {
                      throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : ' . $this->_params[$key]['type'] . ' but it has a value of : ' . $value);
                  }
             break;
 
             default:
+                if (isset($this->_params[$key]['subobject']) && $this->_params[$key]['subobject'])
+                {
+                    $currentClass = get_class($value);
+                    $parts = explode('\\', $currentClass);
+                    array_pop($parts);
+                    $className = str_replace('Entity', 'DataType', implode('\\', $parts) . '\\' . $this->_params[$key]['type']);
+                    if (!$value instanceof $className)
+                    {
+                        throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : ' . $this->_params[$key]['type'] . ' but it has a value of : ' . print_r($value, true));
+                    }
+                }
             break;
         }
 
@@ -294,6 +404,15 @@ abstract class Base
                     if ($value > $typeValue)
                     {
                         throw new \InvalidArgumentException('Field ' . $key . ' cannot be higher than ' . $typeValue);
+                    }
+                break;
+
+                case 'pattern':
+                    $matches = array();
+                    $typeValue = "/" . $typeValue . "/";
+                    if (1 !== preg_match($typeValue, $value, $matches) || (strlen($value) > 0 && !$matches[0])) 
+                    {
+                        throw new \InvalidArgumentException('Field ' . $key . ' should match regex pattern : ' . $typeValue . ' and it has a value of ' . $value);
                     }
                 break;
             }

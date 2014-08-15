@@ -42,14 +42,15 @@ class ShipmentDetails extends Base
      */
     protected $_params = array(
         'NumberOfPieces' => array(
-            'type' => '',
+            'type' => 'integer',
             'required' => false,
             'subobject' => false,
         ), 
         'Pieces' => array(
-            'type' => 'Pieces',
+            'type' => 'Piece',
             'required' => false,
             'subobject' => true,
+            'multivalues' => true,
         ), 
         'Weight' => array(
             'type' => 'Weight',

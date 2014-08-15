@@ -168,6 +168,48 @@ abstract class Base extends BaseDataType
     }
 
     /**
+     * Initialize object from an XML string
+     * 
+     * @param string $xml XML String
+     * 
+     * @return void
+     */
+    public function initFromXML($xml) 
+    {
+        $xml = simplexml_load_string(str_replace('req:', '', $xml));
+        $parts = explode('\\', get_class($this));
+        $className = array_pop($parts);
+        foreach ($xml->children() as $child) 
+        {            
+            switch ($child->getName())
+            {
+                case 'Response':
+                    $this->MessageTime = (string) $child->ServiceHeader->MessageTime;
+                    $this->MessageReference = (string) $child->ServiceHeader->MessageReference;
+                    $this->SiteID = (string) $child->ServiceHeader->SiteID;
+                    $this->Password = '#';
+                break;
+
+                default:
+                    foreach($this->_params as $key => $infos)
+                    {
+                        if (is_object($this->$key))
+                        {
+                            $this->$key->initFromXml($child->asXML());
+                        }
+                        else 
+                        {
+                            if (isset($child->$key)) 
+                            {
+                                $this->$key = (string) $child->$key;
+                            }
+                        }
+                    }
+                break;
+            }
+        }
+    }
+    /**
      * Initialize property values bag
      *
      * @return void

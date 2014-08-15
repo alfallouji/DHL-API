@@ -24,6 +24,7 @@
 
 use DHL\Entity\GB\ShipmentRequest;
 use DHL\Client\Web as WebserviceClient;
+use DHL\Datatype\GB\Piece;
 
 require(__DIR__ . '/../../init.php');
 
@@ -45,20 +46,18 @@ $sample->Billing->ShippingPaymentType = 'S';
 $sample->Billing->BillingAccountNumber = '960374654';
 $sample->Billing->DutyPaymentType = 'S';
 $sample->Billing->DutyAccountNumber = '960374654';
-$sample->Consignee->CompanyName = 'IBM Singapore Pte Ltd';
-$sample->Consignee->AddressLine = '9 Changi Business Park Central 1';
-$sample->Consignee->AddressLine = '3th Floor';
-$sample->Consignee->AddressLine = 'The IBM Place';
-$sample->Consignee->City = 'Singapore';
-$sample->Consignee->PostalCode = '486048';
-$sample->Consignee->CountryCode = 'SG';
-$sample->Consignee->CountryName = 'Singapore';
-$sample->Consignee->Contact->PersonName = 'Mrs Orlander';
-$sample->Consignee->Contact->PhoneNumber = '506-851-2271';
-$sample->Consignee->Contact->PhoneExtension = '7862';
+$sample->Consignee->CompanyName = 'Ssense';
+$sample->Consignee->AddressLine = '333 Chabanel West, #900';
+$sample->Consignee->City = 'Montreal';
+$sample->Consignee->PostalCode = 'H3E1G6';
+$sample->Consignee->CountryCode = 'CA';
+$sample->Consignee->CountryName = 'Canada';
+$sample->Consignee->Contact->PersonName = 'Bashar Al-Fallouji';
+$sample->Consignee->Contact->PhoneNumber = '0435 336 653';
+$sample->Consignee->Contact->PhoneExtension = '123';
 $sample->Consignee->Contact->FaxNumber = '506-851-7403';
 $sample->Consignee->Contact->Telex = '506-851-7121';
-$sample->Consignee->Contact->Email = 'anc.email.com';
+$sample->Consignee->Contact->Email = 'bashar@alfallouji.com';
 $sample->Commodity->CommodityCode = 'cc';
 $sample->Commodity->CommodityName = 'cn';
 $sample->Dutiable->DeclaredValue = '200.00';
@@ -67,24 +66,37 @@ $sample->Dutiable->ScheduleB = '3002905110';
 $sample->Dutiable->ExportLicense = 'D123456';
 $sample->Dutiable->ShipperEIN = '112233445566';
 $sample->Dutiable->ShipperIDType = 'S';
-$sample->Dutiable->ImportLicense = 'ImportLic';
+$sample->Dutiable->ImportLicense = 'ALFAL';
 $sample->Dutiable->ConsigneeEIN = 'ConEIN2123';
 $sample->Dutiable->TermsOfTrade = 'DTP';
 $sample->Reference->ReferenceID = 'AM international shipment';
 $sample->Reference->ReferenceType = 'St';
-$sample->ShipmentDetails->NumberOfPieces = '1';
-$sample->ShipmentDetails->Pieces->Piece->PieceID = '1';
-$sample->ShipmentDetails->Pieces->Piece->PackageType = 'EE';
-$sample->ShipmentDetails->Pieces->Piece->Weight = '10.0';
-$sample->ShipmentDetails->Pieces->Piece->DimWeight = '1200.0';
-$sample->ShipmentDetails->Pieces->Piece->Width = '100';
-$sample->ShipmentDetails->Pieces->Piece->Height = '200';
-$sample->ShipmentDetails->Pieces->Piece->Depth = '300';
+$sample->ShipmentDetails->NumberOfPieces = 2;
+
+$piece = new Piece();
+$piece->PieceID = '1';
+$piece->PackageType = 'EE';
+$piece->Weight = '5.0';
+$piece->DimWeight = '600.0';
+$piece->Width = '50';
+$piece->Height = '100';
+$piece->Depth = '150';
+$sample->ShipmentDetails->addPiece($piece);
+
+$piece->PieceID = '2';
+$piece->PackageType = 'EE';
+$piece->Weight = '5.0';
+$piece->DimWeight = '600.0';
+$piece->Width = '50';
+$piece->Height = '100';
+$piece->Depth = '150';
+$sample->ShipmentDetails->addPiece($piece);
+
 $sample->ShipmentDetails->Weight = '10.0';
 $sample->ShipmentDetails->WeightUnit = 'L';
 $sample->ShipmentDetails->GlobalProductCode = 'P';
 $sample->ShipmentDetails->LocalProductCode = 'P';
-$sample->ShipmentDetails->Date = '2014-08-05';
+$sample->ShipmentDetails->Date = date('Y-m-d');
 $sample->ShipmentDetails->Contents = 'AM international shipment contents';
 $sample->ShipmentDetails->DoorTo = 'DD';
 $sample->ShipmentDetails->DimensionUnit = 'I';
@@ -115,6 +127,8 @@ $sample->EProcShip = 'N';
 $sample->LabelImageFormat = 'PDF';
 
 // Call DHL XML API
+$start = microtime(true);
 echo $sample->toXML();
-$client = new WebserviceClient();
+$client = new WebserviceClient('staging');
 echo $client->call($sample);
+echo PHP_EOL . 'Executed in ' . (microtime(true) - $start) . ' seconds.' . PHP_EOL;

@@ -45,6 +45,7 @@ class Pieces extends Base
             'type' => 'Piece',
             'required' => false,
             'subobject' => true,
+            'multivalues' => true,
         ), 
     );
 }
