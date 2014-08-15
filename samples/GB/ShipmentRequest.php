@@ -83,6 +83,7 @@ $piece->Height = '100';
 $piece->Depth = '150';
 $sample->ShipmentDetails->addPiece($piece);
 
+$piece = new Piece();
 $piece->PieceID = '2';
 $piece->PackageType = 'EE';
 $piece->Weight = '5.0';
