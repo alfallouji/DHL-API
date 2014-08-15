@@ -12,4 +12,19 @@
  * @project DHL
  */
 return array(
+    // AutoloadManager options
+    'autoloader' => array(
+
+        // Only scan once when a class is not found in the class map (this should be set to SCAN_NONE on production environment
+        'scanOptions' => autoloadManager::SCAN_ONCE,
+
+        // complete path to autoload file that contains the class map 
+        'dir' => sys_get_temp_dir() . '/dhl-api-autoload.php',
+    ),
+
+    // ID to use to connect to DHL
+    'id' => 'Ssense',
+
+    // Password to use to connect to DHL
+    'pass' => 'Mypassword',
 );
