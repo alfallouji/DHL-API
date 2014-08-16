@@ -148,7 +148,7 @@ abstract class Base extends BaseDataType
 
         foreach ($this->_bodyParams as $name => $infos) 
         {
-            if (isset($this->$name))
+            if ($this->$name)
             {
                 if (is_object($this->$name)) 
                 {
