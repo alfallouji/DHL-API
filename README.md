@@ -63,7 +63,7 @@ use DHL\Entity\GB\ShipmentRequest;
 use DHL\Client\Web as WebserviceClient;
 use DHL\Datatype\GB\Piece;
 
-// You may use your own app boostrap, as long as it takes care of autoloading
+// You may use your own init script, as long as it takes care of autoloading
 require(__DIR__ . '/init.php');
 
 // Test a ShipmentRequest using DHL XML API
