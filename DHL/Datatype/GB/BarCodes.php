@@ -41,8 +41,26 @@ class BarCodes extends Base
      * @var array
      */
     protected $_params = array(
-        'BarCode' => array(
-            'type' => 'BarCode',
+        'AWBBarCode' => array(
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+            'comment' => '',
+        ), 
+        'OriginDestnBarcode' => array(
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+            'comment' => '',
+        ), 
+        'ClientIDBarCode' => array(
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+            'comment' => '',
+        ), 
+        'DHLRoutingBarCode' => array(
+            'type' => 'string',
             'required' => false,
             'subobject' => false,
             'comment' => '',

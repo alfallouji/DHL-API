@@ -15,7 +15,7 @@
  */
 
 /**
- * File:        DestinationServiceArea.php
+ * File:        BarCode.php
  * Project:     DHL API
  *
  * @author      Al-Fallouji Bashar
@@ -26,9 +26,9 @@ namespace DHL\Datatype\GB;
 use DHL\Datatype\Base;
 
 /**
- * DestinationServiceArea Request model for DHL API
+ * BarCode Request model for DHL API
  */
-class DestinationServiceArea extends Base
+class BarCode extends Base
 {
     /**
      * Is this object a subobject
@@ -41,31 +41,11 @@ class DestinationServiceArea extends Base
      * @var array
      */
     protected $_params = array(
-        'ServiceAreaCode' => array(
-            'type' => 'ServiceAreaCode',
-            'required' => false,
-            'subobject' => false,
-            'comment' => 'DHL service area code',
-            'length' => '3',
-        ), 
-        'Description' => array(
+        'BarCode' => array(
             'type' => 'string',
             'required' => false,
             'subobject' => false,
-        ), 
-        'FacilityCode' => array(
-            'type' => 'FacilityCode',
-            'required' => false,
-            'subobject' => false,
-            'comment' => 'Destination Facility Code',
-            'length' => '3',
-        ), 
-        'InboundSortCode' => array(
-            'type' => 'InboundSortCode',
-            'required' => false,
-            'subobject' => false,
-            'comment' => 'InBound Sort Code',
-            'maxLength' => '4',
+            'comment' => '',
         ), 
     );
 }

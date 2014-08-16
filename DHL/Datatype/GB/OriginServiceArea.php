@@ -58,7 +58,7 @@ class OriginServiceArea extends Base
             'required' => false,
             'subobject' => false,
             'comment' => 'OutBound Sort Code',
-            'length' => '4',
+            'maxLength' => '4',
         ), 
     );
 }

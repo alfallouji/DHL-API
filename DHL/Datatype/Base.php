@@ -42,6 +42,12 @@ abstract class Base
     protected $_values = array();
 
     /**
+     * Parent node name of the object 
+     * @var string
+     */
+    protected $_xmlNodeName = null;
+
+    /**
      * Class constructor
      */ 
     public function __construct()
@@ -91,8 +97,15 @@ abstract class Base
         $displayedParentNode = false;
         $this->validateParameters();
 
-        $parts = explode('\\', get_class($this));
-        $parentNode = array_pop($parts);
+        if (null !== $this->_xmlNodeName) 
+        {
+            $parentNode = $this->_xmlNodeName;
+        }
+        else
+        {
+            $parts = explode('\\', get_class($this));
+            $parentNode = array_pop($parts);
+        }
 
         $xmlWriter->startElement($parentNode);
         foreach ($this->_params as $name => $infos) 
@@ -135,28 +148,29 @@ abstract class Base
         $parts = explode('\\', get_class($this));
         $className = array_pop($parts);
         foreach ($xml->children() as $child) 
-        {            
-            switch ($child->getName())
+        {           
+            $childName = $child->getName();
+            if (isset($this->$childName) && is_object($this->$childName))
             {
-                case 'Response':
-                break;
-
-                default:
-                    foreach($this->_params as $key => $infos)
-                    {
-                        if (is_object($this->$key))
-                        {
-                            $this->$key->initFromXml($child->asXML());
-                        }
-                        else 
-                        {
-                            if (isset($child->$key)) 
-                            {
-                                $this->$key = (string) $child->$key;
-                            }
-                        }
-                    }
-                break;
+                $this->$childName->initFromXml($child->asXML());
+            }
+            elseif (isset($this->_params[$childName]['multivalues']) && $this->_params[$childName]['multivalues'])
+            {
+                foreach ($child->children() as $subchild) 
+                {
+                    $subchildName = $subchild->getName();
+                    $childClassname = implode('\\', $parts) . '\\' . $this->_params[$subchildName]['type'];
+                    $childClassname = str_replace('Entity', 'Datatype', $childClassname);
+                    echo $childClassname . PHP_EOL;
+                    $childObj = new $childClassname();
+                    $childObj->initFromXml($subchild->asXML());
+                    $addMethodName = 'add' . ucfirst($subchildName);
+                    $this->$addMethodName($childObj);
+                }
+            }
+            elseif (isset($this->$childName))
+            {
+                $this->$childName = (string) $child;
             }
         }
     }
@@ -177,7 +191,7 @@ abstract class Base
 
         if (!array_key_exists($key, $this->_values))
         {
-            throw new \InvalidArgumentException('Multivalues setter for field : ' . $key . ' is not defined for this object');
+            throw new \InvalidArgumentException('Field : ' . $key . ' is not defined for ' . get_class($this));
         }
 
         if (empty($arguments) && count($arguments) > 1) 
@@ -185,9 +199,31 @@ abstract class Base
             throw new \InvalidArgumentException($name . ' method takes only 1 argument');
         }
 
-        $this->$key = $arguments[0];
+        $this->validateParameterType($key, $arguments[0]);
+        $this->validateParameterValue($key, $arguments[0]);
+        
+        if (isset($this->_params[$key]['multivalues']) && $this->_params[$key]['multivalues'])
+        {
+            $this->_values[$key][] = $arguments[0];
+        }
+        else
+        {
+            throw new \InvalidArgumentException('This is not a multivalues field : ' . $key);
+        }
     }
  
+    /**
+     * Magic isset function
+     * 
+     * @param string $key Key to check
+     * 
+     * @return bolean True if it exsits, false otherwise 
+     */
+    final public function __isset($key) 
+    {
+        return array_key_exists($key, $this->_values);
+    }
+
     /**
      * Magic getter function
      * 
@@ -200,7 +236,7 @@ abstract class Base
     {
         if (!array_key_exists($key, $this->_values))
         {
-            throw new \InvalidArgumentException('Field : ' . $key . ' is not defined for this object');
+            throw new \InvalidArgumentException('Field : ' . $key . ' is not defined for ' . get_class($this));
         }
 
         return $this->_values[$key];
@@ -219,20 +255,12 @@ abstract class Base
     {
         if (!array_key_exists($key, $this->_values))
         {
-            throw new \InvalidArgumentException('Field : ' . $key . ' is not defined for this object');
+            throw new \InvalidArgumentException('Field : ' . $key . ' is not defined for ' . get_class($this));
         }
 
         $this->validateParameterType($key, $value);
         $this->validateParameterValue($key, $value);
-        
-        if (isset($this->_params[$key]['multivalues']) && $this->_params[$key]['multivalues'])
-        {
-            $this->_values[$key][] = $value;
-        }
-        else
-        {
-            $this->_values[$key] = $value;
-        }
+        $this->_values[$key] = $value;
     }
  
     /**
@@ -277,10 +305,9 @@ abstract class Base
             {
                 if (is_array($this->_values[$name])) 
                 {
-                    foreach ($this->_values[$name] as $value)
+                    foreach ($this->_values[$name] as $subelement)
                     {
-                        $this->validateParameterType($name, $value);
-                        $this->validateParameterValue($name, $value);
+                        $subelement->validateParameters();
                     }
                 }
                 else 

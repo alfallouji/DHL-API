@@ -148,11 +148,20 @@ abstract class Base extends BaseDataType
 
         foreach ($this->_bodyParams as $name => $infos) 
         {
-            if ($this->$name) 
+            if (isset($this->$name))
             {
                 if (is_object($this->$name)) 
                 {
                     $this->$name->toXML($xmlWriter);
+                }
+                elseif (is_array($this->$name)) 
+                {
+                    $xmlWriter->startElement($name);
+                    foreach ($this->$name as $subelement) 
+                    {
+                        $subelement->toXML($xmlWriter);
+                    }
+                    $xmlWriter->endElement();
                 }
                 else
                 {
@@ -180,8 +189,9 @@ abstract class Base extends BaseDataType
         $parts = explode('\\', get_class($this));
         $className = array_pop($parts);
         foreach ($xml->children() as $child) 
-        {            
-            switch ($child->getName())
+        {           
+            $childName = $child->getName();
+            switch ($childName)
             {
                 case 'Response':
                     $this->MessageTime = (string) $child->ServiceHeader->MessageTime;
@@ -191,19 +201,26 @@ abstract class Base extends BaseDataType
                 break;
 
                 default:
-                    foreach($this->_params as $key => $infos)
+                    if (is_object($this->$childName))
                     {
-                        if (is_object($this->$key))
+                        $this->$childName->initFromXml($child->asXML());
+                    }
+                    elseif (isset($this->_params[$childName]['multivalues']) && $this->_params[$childName]['multivalues'])
+                    {
+                        foreach ($child->children() as $subchild) 
                         {
-                            $this->$key->initFromXml($child->asXML());
+                            $subchildName = $subchild->getName();
+                            $childClassname = implode('\\', $parts) . '\\' . $this->_params[$childName]['type'];
+                            $childClassname = str_replace('Entity', 'Datatype', $childClassname);
+                            $childObj = new $childClassname();
+                            $childObj->initFromXml($subchild->asXML());
+                            $addMethodName = 'add' . ucfirst($subchildName);
+                            $this->$addMethodName($childObj);
                         }
-                        else 
-                        {
-                            if (isset($child->$key)) 
-                            {
-                                $this->$key = (string) $child->$key;
-                            }
-                        }
+                    }
+                    elseif (isset($this->$childName))
+                    {
+                        $this->$childName = (string) $child;
                     }
                 break;
             }
@@ -220,12 +237,19 @@ abstract class Base extends BaseDataType
         {
             if (!$this->_isSubobject && isset($infos['subobject']) && $infos['subobject'])
             {
-                $tmp = get_class($this);
-                $parts = explode('\\', $tmp);
-                array_pop($parts);
-                $className = implode('\\', $parts) . '\\' . $infos['type'];
-                $className = str_replace('Entity', 'Datatype', $className);
-                $this->_values[$name] = new $className();
+                if (isset($infos['multivalues']) && $infos['multivalues']) 
+                {
+                    $this->_values[$name] = array();
+                }
+                else
+                {
+                    $tmp = get_class($this);
+                    $parts = explode('\\', $tmp);
+                    array_pop($parts);
+                    $className = implode('\\', $parts) . '\\' . $infos['type'];
+                    $className = str_replace('Entity', 'Datatype', $className);
+                    $this->_values[$name] = new $className();
+                }
             }
             else
             {
@@ -251,8 +275,18 @@ abstract class Base extends BaseDataType
 
             if ($this->_values[$name]) 
             {
-                $this->validateParameterType($name, $this->_values[$name]);
-                $this->validateParameterValue($name, $this->_values[$name]);
+                if (is_array($this->_values[$name])) 
+                {
+                    foreach ($this->_values[$name] as $subelement)
+                    {
+                        $subelement->validateParameters();
+                    }
+                }
+                else 
+                {
+                    $this->validateParameterType($name, $this->_values[$name]);
+                    $this->validateParameterValue($name, $this->_values[$name]);
+                }
             }
         }
 

@@ -37,6 +37,12 @@ class ShipValResponsePiece extends Base
     protected $_isSubobject = true;
 
     /**
+     * Parent node name of the object 
+     * @var string
+     */
+    protected $_xmlNodeName = 'Piece';
+
+    /**
      * Parameters of the datatype
      * @var array
      */
