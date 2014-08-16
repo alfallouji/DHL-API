@@ -63,16 +63,19 @@ use DHL\Entity\GB\ShipmentRequest;
 use DHL\Client\Web as WebserviceClient;
 use DHL\Datatype\GB\Piece;
 
-require(__DIR__ . '/../../init.php');
+// You may use your own app boostrap, as long as it takes care of autoloading
+require(__DIR__ . '/init.php');
 
 // Test a ShipmentRequest using DHL XML API
 $sample = new ShipmentRequest();
 
+// Assuming there is a config array variable with id and pass to DHL XML Service
+$sample->SiteID = $config['id'];
+$sample->Password = $config['pass'];
+
 // Set values of the request
 $sample->MessageTime = '2001-12-17T09:30:47-05:00';
 $sample->MessageReference = '1234567890123456789012345678901';
-$sample->SiteID = $config['id'];
-$sample->Password = $config['pass'];
 $sample->RegionCode = 'AM';
 $sample->RequestedPickupTime = 'Y';
 $sample->NewShipper = 'Y';
@@ -166,8 +169,12 @@ $sample->LabelImageFormat = 'PDF';
 
 // Call DHL XML API
 $start = microtime(true);
+
+// Display the XML sent to DHL
 echo $sample->toXML();
 $client = new WebserviceClient('staging');
+
+// Display the result
 echo $client->call($sample);
 echo PHP_EOL . 'Executed in ' . (microtime(true) - $start) . ' seconds.' . PHP_EOL;
 ```
