@@ -170,11 +170,13 @@ $sample->LabelImageFormat = 'PDF';
 // Call DHL XML API
 $start = microtime(true);
 
-// Display the XML sent to DHL
+// Display the XML that will be sent to DHL
 echo $sample->toXML();
+
+// DHL webservice client using the staging environment
 $client = new WebserviceClient('staging');
 
-// Display the result
+// Call the DHL service and display the XML result
 echo $client->call($sample);
 echo PHP_EOL . 'Executed in ' . (microtime(true) - $start) . ' seconds.' . PHP_EOL;
 ```
