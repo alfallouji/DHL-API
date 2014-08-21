@@ -22,6 +22,7 @@
  * @version     0.1
  */
 
+use DHL\Entity\GB\ShipmentResponse;
 use DHL\Entity\GB\ShipmentRequest;
 use DHL\Client\Web as WebserviceClient;
 use DHL\Datatype\GB\Piece;
@@ -41,11 +42,11 @@ $sample->RequestedPickupTime = 'Y';
 $sample->NewShipper = 'Y';
 $sample->LanguageCode = 'en';
 $sample->PiecesEnabled = 'Y';
-$sample->Billing->ShipperAccountNumber = '960374654';
+$sample->Billing->ShipperAccountNumber = $config['shipperAccountNumber'];
 $sample->Billing->ShippingPaymentType = 'S';
-$sample->Billing->BillingAccountNumber = '960374654';
+$sample->Billing->BillingAccountNumber = $config['billingAccountNumber'];
 $sample->Billing->DutyPaymentType = 'S';
-$sample->Billing->DutyAccountNumber = '960374654';
+$sample->Billing->DutyAccountNumber = $config['dutyAccountNumber'];
 $sample->Consignee->CompanyName = 'Ssense';
 $sample->Consignee->AddressLine = '333 Chabanel West, #900';
 $sample->Consignee->City = 'Montreal';
@@ -131,5 +132,9 @@ $sample->LabelImageFormat = 'PDF';
 $start = microtime(true);
 echo $sample->toXML();
 $client = new WebserviceClient('staging');
-echo $client->call($sample);
+$xml = $client->call($sample);
 echo PHP_EOL . 'Executed in ' . (microtime(true) - $start) . ' seconds.' . PHP_EOL;
+
+$response = new ShipmentResponse();
+$response->initFromXML($xml);
+echo $xml . PHP_EOL . $response->toXML();
