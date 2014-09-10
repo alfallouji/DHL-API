@@ -72,12 +72,15 @@ use DHL\Datatype\GB\Piece;
 // You may use your own init script, as long as it takes care of autoloading
 require(__DIR__ . '/init.php');
 
+// DHL settings
+$dhl = $config['dhl'];
+
 // Test a ShipmentRequest using DHL XML API
 $sample = new ShipmentRequest();
 
 // Assuming there is a config array variable with id and pass to DHL XML Service
-$sample->SiteID = $config['id'];
-$sample->Password = $config['pass'];
+$sample->SiteID = $dhl['id'];
+$sample->Password = $dhl['pass'];
 
 // Set values of the request
 $sample->MessageTime = '2001-12-17T09:30:47-05:00';
@@ -87,11 +90,11 @@ $sample->RequestedPickupTime = 'Y';
 $sample->NewShipper = 'Y';
 $sample->LanguageCode = 'en';
 $sample->PiecesEnabled = 'Y';
-$sample->Billing->ShipperAccountNumber = $config['shipperAccountNumber'];
+$sample->Billing->ShipperAccountNumber = $dhl['shipperAccountNumber'];
 $sample->Billing->ShippingPaymentType = 'S';
-$sample->Billing->BillingAccountNumber = $config['billingAccountNumber'];
+$sample->Billing->BillingAccountNumber = $dhl['billingAccountNumber'];
 $sample->Billing->DutyPaymentType = 'S';
-$sample->Billing->DutyAccountNumber = $config['dutyAccountNumber'];
+$sample->Billing->DutyAccountNumber = $dhl['dutyAccountNumber'];
 $sample->Consignee->CompanyName = 'Ssense';
 $sample->Consignee->AddressLine = '333 Chabanel West, #900';
 $sample->Consignee->City = 'Montreal';
