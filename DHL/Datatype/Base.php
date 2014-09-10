@@ -351,8 +351,10 @@ abstract class Base
                 }
             break;
 
+            case 'positiveInteger':
+            case 'negativeInteger':
             case 'integer':
-                 if (!filter_var($value, FILTER_VALIDATE_INT)) 
+                 if (false === filter_var((int) $value, FILTER_VALIDATE_INT) && ((int) $value != $value)) 
                  {
                      throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : ' . $this->_params[$key]['type'] . ' but it has a value of : ' . $value);
                  }
