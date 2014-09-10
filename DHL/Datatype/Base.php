@@ -168,7 +168,7 @@ abstract class Base
                     $this->$addMethodName($childObj);
                 }
             }
-            elseif (isset($this->$childName))
+            elseif (isset($this->$childName) && ((string) $child))
             {
                 $this->$childName = (string) $child;
             }
