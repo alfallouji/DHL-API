@@ -158,7 +158,8 @@ class ShipmentRequest extends Base
             'subobject' => false,
         ), 
         'DocImages' => array(
-            'type' => 'DocImages',
+            'type' => 'DocImage',
+            'multivalues' => true,
             'required' => false,
             'subobject' => true,
         ), 
