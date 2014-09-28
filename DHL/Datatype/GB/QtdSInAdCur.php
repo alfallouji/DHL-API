@@ -54,7 +54,7 @@ class QtdSInAdCur extends Base
             'subobject' => false,
             'comment' => 'CurrencyRoleTypeCode',
             'maxLength' => '6',
-            'enumeration' => 'BILLCU,PULCL,INVCU,BASEC',
+            'enumeration' => 'BILLC,BILLCU,PULCL,INVCU,BASEC',
         ), 
         'PackageCharge' => array(
             'type' => 'PackageCharge',
