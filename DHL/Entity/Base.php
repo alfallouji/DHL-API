@@ -97,6 +97,12 @@ abstract class Base extends BaseDataType
     protected $_displaySchemaVersion = false;
 
     /**
+     * Parent node name of the object 
+     * @var string
+     */
+    protected $_xmlNodeName = null;
+
+    /**
      * Class constants
      */
     const DHL_REQ = 'http://www.dhl.com';
@@ -137,6 +143,11 @@ abstract class Base extends BaseDataType
             $xmlWriter->writeAttribute('schemaVersion', '1.0');
         }
 
+        if (null !== $this->_xmlNodeName) 
+        {
+            $xmlWriter->startElement($this->_xmlNodeName);
+        }
+
         $xmlWriter->startElement('Request');
         $xmlWriter->startElement('ServiceHeader');
         foreach ($this->_headerParams as $name => $infos) 
@@ -171,6 +182,13 @@ abstract class Base extends BaseDataType
         }
 
         $xmlWriter->endElement(); // End of parent node
+
+        // End of class name tag
+        if (null !== $this->_xmlNodeName) 
+        {
+            $xmlWriter->endElement();
+        }
+
         $xmlWriter->endDocument();
     
         return $xmlWriter->outputMemory(true);
