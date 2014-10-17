@@ -167,12 +167,22 @@ abstract class Base extends BaseDataType
                 }
                 elseif (is_array($this->$name)) 
                 {
-                    $xmlWriter->startElement($name);
-                    foreach ($this->$name as $subelement) 
+                    if ('string' == $this->_params[$name]['type'])
                     {
-                        $subelement->toXML($xmlWriter);
+                        foreach ($this->$name as $subelement)
+                        {
+                            $xmlWriter->writeElement($name, $subelement);
+                        }
                     }
-                    $xmlWriter->endElement();
+                    else
+                    {
+                        $xmlWriter->startElement($name);
+                        foreach ($this->$name as $subelement) 
+                        {
+                            $subelement->toXML($xmlWriter);
+                        }
+                        $xmlWriter->endElement();
+                    }
                 }
                 else
                 {
@@ -236,17 +246,31 @@ abstract class Base extends BaseDataType
                         foreach ($child->children() as $subchild) 
                         {
                             $subchildName = $subchild->getName();
-                            $childClassname = implode('\\', $parts) . '\\' . $this->_params[$childName]['type'];
+                            if ($subchild->count() > 1)
+                            {
+                                $subchildName .= 's';
+                            }
+
+                            $childClassname = implode('\\', $parts) . '\\' . $this->_params[$subchildName]['type'];
                             $childClassname = str_replace('Entity', 'Datatype', $childClassname);
-                            $childObj = new $childClassname();
-                            $childObj->initFromXml($subchild->asXML());
+
+                            if ('string' == $this->_params[$subchildName]['type'] && ($subchild->count() <= 1))
+                            {
+                                $childObj = trim((string) $subchild);
+                            }
+                            else
+                            {
+                                $childObj = new $childClassname();
+                                $childObj->initFromXml($subchild->asXML());
+                            }
+                            
                             $addMethodName = 'add' . ucfirst($subchildName);
                             $this->$addMethodName($childObj);
                         }
                     }
                     elseif (isset($this->$childName))
                     {
-                        $this->$childName = (string) $child;
+                        $this->$childName = trim((string) $child);
                     }
                 break;
             }

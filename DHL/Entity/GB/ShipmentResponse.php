@@ -204,9 +204,10 @@ class ShipmentResponse extends Base
             'multivalues' => false,
         ), 
         'Piece' => array(
-            'type' => 'Piece',
+            'type' => 'string',
             'required' => false,
-            'subobject' => true,
+            'subobject' => false,
+            'multivalues' => false,
         ), 
         'Contents' => array(
             'type' => 'string',

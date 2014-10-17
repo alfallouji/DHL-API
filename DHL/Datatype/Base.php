@@ -118,12 +118,22 @@ abstract class Base
                 }
                 elseif (is_array($this->$name)) 
                 {
-                    $xmlWriter->startElement($name);
-                    foreach ($this->$name as $subelement) 
+                    if ('string' == $this->_params[$name]['type'])
                     {
-                        $subelement->toXML($xmlWriter);
+                        foreach ($this->$name as $subelement)
+                        {
+                            $xmlWriter->writeElement($name, $subelement);
+                        }
                     }
-                    $xmlWriter->endElement();
+                    else
+                    {
+                        $xmlWriter->startElement($name);
+                        foreach ($this->$name as $subelement) 
+                        {
+                            $subelement->toXML($xmlWriter);
+                        }
+                        $xmlWriter->endElement();
+                    }
                 }
                 else
                 {
@@ -150,6 +160,7 @@ abstract class Base
         foreach ($xml->children() as $child) 
         {           
             $childName = $child->getName();
+
             if (isset($this->$childName) && is_object($this->$childName))
             {
                 $this->$childName->initFromXml($child->asXML());
@@ -161,16 +172,22 @@ abstract class Base
                     $subchildName = $subchild->getName();
                     $childClassname = implode('\\', $parts) . '\\' . $this->_params[$subchildName]['type'];
                     $childClassname = str_replace('Entity', 'Datatype', $childClassname);
-                    echo $childClassname . PHP_EOL;
-                    $childObj = new $childClassname();
-                    $childObj->initFromXml($subchild->asXML());
+                    if ('string' == $this->_params[$subchildName]['type'])
+                    {
+                        $childObj = trim((string) $subchild);
+                    }
+                    else
+                    {
+                        $childObj = new $childClassname();
+                        $childObj->initFromXml($subchild->asXML());
+                    }
                     $addMethodName = 'add' . ucfirst($subchildName);
                     $this->$addMethodName($childObj);
                 }
             }
             elseif (isset($this->$childName) && ((string) $child))
             {
-                $this->$childName = (string) $child;
+                $this->$childName = trim((string) $child);
             }
         }
     }
@@ -187,7 +204,14 @@ abstract class Base
     public function __call($name, $arguments) 
     {
         $key = str_replace('add', '', $name);
-        $key .= 's';
+
+        if (isset($this->_params[$key . 's']) 
+            && $this->_params[$key . 's']['type'] != 'string' 
+            && isset($this->_params[$key. 's']['multivalues']) 
+            && true === $this->_params[$key . 's']['multivalues'])
+        {
+            $key .= 's';
+        }
 
         if (!array_key_exists($key, $this->_values))
         {
@@ -208,7 +232,7 @@ abstract class Base
         }
         else
         {
-            throw new \InvalidArgumentException('This is not a multivalues field : ' . $key);
+            throw new \InvalidArgumentException('This is not a multivalues field : ' . $key . ' called via method ' . $name);
         }
     }
  
@@ -303,7 +327,7 @@ abstract class Base
         {
             if ($this->_values[$name]) 
             {
-                if (is_array($this->_values[$name])) 
+                if (is_array($this->_values[$name]) && isset($infos['subobject']) && true === $infos['subobject']) 
                 {
                     foreach ($this->_values[$name] as $subelement)
                     {
@@ -332,12 +356,29 @@ abstract class Base
      */
     protected function validateParameterType($key, $value)
     {
+        if (null === $value) 
+        {
+            return true;
+        }
+
         switch ($this->_params[$key]['type']) 
         {
             case 'string':
-                if ($value !== (string) $value)
+                if (isset($this->_params[$key]['multivalues']) && true === $this->_params[$key]['multivalues']) 
                 {
-                    throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : ' . $this->_params[$key]['type'] . ' but it has a value of : ' . $value);
+                    foreach ($value as $subvalue) 
+                    {
+                        if (null !== $subvalue && $subvalue !== (string) $subvalue) 
+                        {
+                            throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : ' 
+                                . $this->_params[$key]['type'] . ' but it has a value of : ' . $subvalue);
+                        }
+                    }
+                }
+                elseif ($value !== (string) $value)
+                {
+                    throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : ' 
+                        . $this->_params[$key]['type'] . ' but it has a value of : ' . $value);
                 }
             break;
 
@@ -347,7 +388,8 @@ abstract class Base
                 $date = date(DATE_ISO8601, $timestamp);
                 if (strtotime($date) !== strtotime($value))
                 {
-                    throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : ' . $this->_params[$key]['type'] . ' but it has a value of : ' . $value);
+                    throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : ' 
+                        . $this->_params[$key]['type'] . ' but it has a value of : ' . $value);
                 }
             break;
 
@@ -356,7 +398,8 @@ abstract class Base
             case 'integer':
                  if (false === filter_var((int) $value, FILTER_VALIDATE_INT) && ((int) $value != $value)) 
                  {
-                     throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : ' . $this->_params[$key]['type'] . ' but it has a value of : ' . $value);
+                     throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : ' 
+                        . $this->_params[$key]['type'] . ' but it has a value of : ' . $value);
                  }
             break;
 
@@ -369,7 +412,8 @@ abstract class Base
                     $className = str_replace('Entity', 'DataType', implode('\\', $parts) . '\\' . $this->_params[$key]['type']);
                     if (!$value instanceof $className)
                     {
-                        throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : ' . $this->_params[$key]['type'] . ' but it has a value of : ' . print_r($value, true));
+                        throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : ' 
+                            . $this->_params[$key]['type'] . ' but it has a value of : "' . print_r($value, true) . '"');
                     }
                 }
             break;

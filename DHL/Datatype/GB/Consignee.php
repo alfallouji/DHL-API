@@ -57,11 +57,12 @@ class Consignee extends Base
             'maxLength' => '35',
         ), 
         'AddressLine' => array(
-            'type' => 'AddressLine',
+            'type' => 'string',
             'required' => true,
             'subobject' => false,
             'comment' => 'Address Line',
             'maxLength' => '35',
+            'multivalues' => true,
         ), 
         'City' => array(
             'type' => 'City',
