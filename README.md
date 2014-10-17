@@ -189,3 +189,45 @@ $client = new WebserviceClient('staging');
 echo $client->call($sample);
 echo PHP_EOL . 'Executed in ' . (microtime(true) - $start) . ' seconds.' . PHP_EOL;
 ```
+
+### How to display or store the PDF label ?
+
+The label is encoded using base64 encoding.
+
+If you would like to get the binary version in order to store it as .PDF or to display it on the browser, you will need to decode it.
+
+For example, the image label is returned in the LabelImage->OutputImage node.
+
+```
+<req:ShipmentResponse>
+
+....
+
+<LabelImage>
+  <OutputFormat>PDF</OutputFormat
+ <OutputImage>......JVBERi0xLjQKJ.....</OutputImage>
+</LabelImage>
+</req:ShipmentResponse>
+```
+
+In PHP, you will need to do the following in order to decode the string.
+
+```
+// We already built our DHL request object, we can call DHL XML API
+$client = new WebserviceClient('staging');
+$xml = $client->call($request);
+$response = new ShipmentResponse();
+$response->initFromXML($xml);
+
+// Store it as a . PDF file in the filesystem
+file_put_contents('dhl-label.pdf', base64_decode($response->LabelImage->OutputImage));
+
+// If you want to display it in the browser
+$data = base64_decode($response->LabelImage->OutputImage);
+if ($data)
+{
+    header('Content-Type: application/pdf');
+    header('Content-Length: ' . strlen($data));
+    echo $data;
+}
+```
