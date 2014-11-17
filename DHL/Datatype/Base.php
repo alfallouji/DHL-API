@@ -364,7 +364,7 @@ abstract class Base
         switch ($this->_params[$key]['type']) 
         {
             case 'string':
-                if (isset($this->_params[$key]['multivalues']) && true === $this->_params[$key]['multivalues']) 
+                if (is_array($value) && isset($this->_params[$key]['multivalues']) && true === $this->_params[$key]['multivalues']) 
                 {
                     foreach ($value as $subvalue) 
                     {
