@@ -54,14 +54,12 @@ class Consignee extends Base
             'required' => false,
             'subobject' => false,
             'comment' => 'SuiteDepartmentName',
-            'maxLength' => '35',
         ), 
         'AddressLine' => array(
             'type' => 'string',
             'required' => true,
             'subobject' => false,
             'comment' => 'Address Line',
-            'maxLength' => '35',
             'multivalues' => true,
         ), 
         'City' => array(
@@ -69,28 +67,24 @@ class Consignee extends Base
             'required' => false,
             'subobject' => false,
             'comment' => 'City name',
-            'maxLength' => '35',
         ), 
         'Division' => array(
             'type' => 'Division',
             'required' => false,
             'subobject' => false,
             'comment' => 'Division (e.g. state, prefecture, etc.) name',
-            'maxLength' => '35',
         ), 
         'DivisionCode' => array(
             'type' => 'DivisionCode',
             'required' => false,
             'subobject' => false,
             'comment' => 'Division (e.g. state, prefecture, etc.) code',
-            'maxLength' => '35',
         ), 
         'PostalCode' => array(
             'type' => 'PostalCode',
             'required' => false,
             'subobject' => false,
             'comment' => 'Full postal/zip code for address',
-            'maxLength' => '12',
         ), 
         'CountryCode' => array(
             'type' => 'CountryCode',
@@ -104,7 +98,6 @@ class Consignee extends Base
             'required' => false,
             'subobject' => false,
             'comment' => 'ISO country name',
-            'maxLength' => '35',
         ), 
         'FederalTaxId' => array(
             'type' => '',
