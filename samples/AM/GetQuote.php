@@ -15,7 +15,7 @@
  */
 
 /**
- * File:        ShipmentRequest.php
+ * File:        GetQuote.php
  * Project:     DHL API
  *
  * @author      Al-Fallouji Bashar
