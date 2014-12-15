@@ -25,7 +25,6 @@
 use DHL\Entity\AM\GetQuote;
 use DHL\Datatype\AM\PieceType;
 use DHL\Client\Web as WebserviceClient;
-use DHL\Datatype\GB\Piece;
 
 require(__DIR__ . '/../../init.php');
 
