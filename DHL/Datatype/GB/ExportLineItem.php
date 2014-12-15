@@ -60,8 +60,7 @@ class ExportLineItem extends Base
             'type' => 'QuantityUnit',
             'required' => false,
             'subobject' => false,
-            'comment' => 'Quantity unit of measure (tens, hundreds,
-				thousands, etc.)',
+            'comment' => 'Quantity unit of measure (tens, hundreds, thousands, etc.)',
             'maxLength' => '8',
         ), 
         'Description' => array(
