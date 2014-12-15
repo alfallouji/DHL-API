@@ -112,6 +112,7 @@ class ExportDeclaration extends Base
             'type' => 'ExportLineItem',
             'required' => false,
             'subobject' => true,
+            'multivalues' => true,
         ), 
     );
 }
