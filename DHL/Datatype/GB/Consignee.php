@@ -47,7 +47,6 @@ class Consignee extends Base
             'subobject' => false,
             'comment' => 'Name of company / business',
             'minLength' => '0',
-            'maxLength' => '35',
         ), 
         'SuiteDepartmentName' => array(
             'type' => 'SuiteDepartmentName',
