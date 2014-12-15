@@ -15,7 +15,7 @@
  */
 
 /**
- * File:        Client.php
+ * File:        Web.php
  * Project:     DHL API
  *
  * @author      Al-Fallouji Bashar
