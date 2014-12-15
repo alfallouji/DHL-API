@@ -108,11 +108,12 @@ class ExportDeclaration extends Base
             'required' => false,
             'subobject' => false,
         ), 
-        'ExportLineItem' => array(
+        'ExportLineItems' => array(
             'type' => 'ExportLineItem',
             'required' => false,
             'subobject' => true,
             'multivalues' => true,
+            'disableParentNode' => true,
         ), 
     );
 }
