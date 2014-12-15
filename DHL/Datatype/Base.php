@@ -71,7 +71,7 @@ abstract class Base
                     return false;
                 }
             }
-            elseif ($v !== null)
+            elseif (!empty($v) && $v !== null)
             {
                 return false;
             }
