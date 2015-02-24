@@ -26,6 +26,7 @@ use DHL\Entity\GB\ShipmentResponse;
 use DHL\Entity\GB\ShipmentRequest;
 use DHL\Client\Web as WebserviceClient;
 use DHL\Datatype\GB\Piece;
+use DHL\Datatype\GB\SpecialService;
 
 require(__DIR__ . '/../../init.php');
 
@@ -126,8 +127,15 @@ $sample->Shipper->Contact->PhoneExtension = '3403';
 $sample->Shipper->Contact->FaxNumber = '1 905 8613411';
 $sample->Shipper->Contact->Telex = '1245';
 $sample->Shipper->Contact->Email = 'test@email.com';
-$sample->SpecialService->SpecialServiceType = 'A';
-$sample->SpecialService->SpecialServiceType = 'I';
+
+$specialService = new SpecialService();
+$specialService->SpecialServiceType = 'A';
+$sample->addSpecialService($specialService);
+
+$specialService = new SpecialService();
+$specialService->SpecialServiceType = 'I';
+$sample->addSpecialService($specialService);
+
 $sample->EProcShip = 'N';
 $sample->LabelImageFormat = 'PDF';
 

@@ -176,12 +176,20 @@ abstract class Base extends BaseDataType
                     }
                     else
                     {
-                        $xmlWriter->startElement($name);
+                        if (!isset($this->_params[$name]['disableParentNode']) || false == $this->_params[$name]['disableParentNode']) 
+                        {              
+                            $xmlWriter->startElement($name);
+                        }
+
                         foreach ($this->$name as $subelement) 
                         {
                             $subelement->toXML($xmlWriter);
                         }
-                        $xmlWriter->endElement();
+
+                        if (!isset($this->_params[$name]['disableParentNode']) || false == $this->_params[$name]['disableParentNode']) 
+                        {              
+                            $xmlWriter->endElement();
+                        }
                     }
                 }
                 else

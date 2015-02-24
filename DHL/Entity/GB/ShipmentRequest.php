@@ -133,6 +133,8 @@ class ShipmentRequest extends Base
             'subobject' => true,
         ), 
         'SpecialService' => array(
+            'disableParentNode' => true,
+            'multivalues' => true,
             'type' => 'SpecialService',
             'required' => false,
             'subobject' => true,

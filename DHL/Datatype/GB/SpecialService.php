@@ -42,7 +42,7 @@ class SpecialService extends Base
      */
     protected $_params = array(
         'SpecialServiceType' => array(
-            'type' => 'SpecialServiceType',
+            'type' => 'string',
             'required' => false,
             'subobject' => false,
             'comment' => 'Special Service codes',
