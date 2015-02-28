@@ -14,10 +14,9 @@
 	},
 
 	"authors": [
-              {
-                  "name": "Bashar Al-Fallouji",
-                  "email": "bashar@alfallouji.com"
-              }
-         ]
-    }
+        {
+            "name": "Bashar Al-Fallouji",
+            "email": "bashar@alfallouji.com"
+        }
+    ]
 }
