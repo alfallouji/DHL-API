@@ -5,7 +5,7 @@
 
     "require": {
         "php": ">=5.3.0"
-    }
+    },
 
     "license": "LGPL-2.1",
 
