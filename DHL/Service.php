@@ -23,8 +23,8 @@
  */
 
 namespace DHL;
-use DHL\Datatype\Entity\GB\ShipmentRequest;
-use DHL\Datatype\Entity\GB\ShipmentResponse;
+use DHL\Entity\GB\ShipmentRequest;
+use DHL\Entity\GB\ShipmentResponse;
 use DHL\Client\Web as WebserviceClient;
 
 /**
