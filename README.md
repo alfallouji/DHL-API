@@ -16,6 +16,7 @@ Latest version is available on github at :
 ## License
 
 
+```
 This Code is released under the GNU LGPL
 
 Please do not change the header of the file(s).
@@ -30,6 +31,7 @@ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
 or FITNESS FOR A PARTICULAR PURPOSE.
 
 See the GNU Lesser General Public License for more details.
+```
 
 
 ## Description
@@ -42,7 +44,7 @@ This library is a PHP Oriented Object client for the DHL XML API Services. DHL X
 
 You can use composer to use this library.
 
-```
+```php
 {
     "require": {
 		"alfallouji/dhl_api": "*"
@@ -62,7 +64,7 @@ In order to have the samples working, you will need to create a DHL staging acco
 Then, you need to copy the conf/config.sample.php to conf/config.php (that file is loaded init.php).
 You need to edit the dhl settings defined in the config/config.php file and provide your account id and password. The samples use those credentials.
 
-```
+```php
 return array(
 	'dhl' => array(
 		'id' => 'Your_DHL_ID',
@@ -77,7 +79,7 @@ return array(
 ## Example
 
 ### Request a shipment
-```
+```php
 use DHL\Entity\GB\ShipmentResponse;
 use DHL\Entity\GB\ShipmentRequest;
 use DHL\Client\Web as WebserviceClient;
@@ -220,7 +222,7 @@ If you would like to get the binary version in order to store it as .PDF or to d
 
 For example, the image label is returned in the LabelImage->OutputImage node.
 
-```
+```xml
 <req:ShipmentResponse>
 
 ....
@@ -234,7 +236,7 @@ For example, the image label is returned in the LabelImage->OutputImage node.
 
 In PHP, you will need to do the following in order to decode the string.
 
-```
+```php
 // We already built our DHL request object, we can call DHL XML API
 $client = new WebserviceClient('staging');
 $xml = $client->call($request);
@@ -258,7 +260,7 @@ if ($data)
 
 You can use the getQuote or getCapability service for that. Here is an example.
 
-```
+```php
 use DHL\Entity\AM\GetQuote;
 use DHL\Datatype\AM\PieceType;
 use DHL\Client\Web as WebserviceClient;
