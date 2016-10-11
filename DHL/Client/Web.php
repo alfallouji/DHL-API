@@ -35,13 +35,13 @@ class Web
      * Url to services
      * @var string
      */
-    private $_stagingUrl = 'https://xmlpitest-ea.dhl.com/XMLShippingServlet';
+    private $_stagingUrl = 'https://xmlpitest-ea.dhl.com/XMLShippingServlet?isUTF8Support=true';
 
     /**
      * Url to services
      * @var string
      */
-    private $_productionUrl = 'https://xmlpi-ea.dhl.com/XMLShippingServlet';
+    private $_productionUrl = 'https://xmlpi-ea.dhl.com/XMLShippingServlet?isUTF8Support=true';
 
     /**
      * Use production server or staging
