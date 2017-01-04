@@ -178,7 +178,12 @@ class ShipmentRequest extends Base
             'type' => 'string',
             'required' => false,
             'subobject' => false,
-        ), 
+        ),
+        'NumberOfArchiveDoc' => array(
+            'type' => 'integer',
+            'required' => false,
+            'subobject' => false,
+        ),
         'Label' => array(
             'type' => 'Label',
             'required' => false,
