@@ -91,8 +91,8 @@ abstract class Base extends BaseDataType
     protected $_isSubobject = null;
 
     /**
-     * @var boolean
-     * Is object a subobject or not
+     * @var string
+     * The schema version
      */
     protected $_schemaVersion = '1.0';
 
