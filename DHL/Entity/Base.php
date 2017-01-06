@@ -91,6 +91,12 @@ abstract class Base extends BaseDataType
     protected $_isSubobject = null;
 
     /**
+     * @var string
+     * The schema version
+     */
+    protected $_schemaVersion = '1.0';
+
+    /**
      * @var boolean
      * Render the schema version or not
      */
@@ -140,7 +146,7 @@ abstract class Base extends BaseDataType
     
         if ($this->_displaySchemaVersion) 
         {
-            $xmlWriter->writeAttribute('schemaVersion', '1.0');
+            $xmlWriter->writeAttribute('schemaVersion', $this->_schemaVersion);
         }
 
         if (null !== $this->_xmlNodeName) 
