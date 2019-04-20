@@ -25,7 +25,7 @@ class Label extends Base
             'required' => false,
             'subobject' => false,
             'comment' => 'LabelTemplate',
-            'enumeration' => '8X4_A4_PDF,8X4_thermal,8X4_A4_TC_PDF,6X4_A4_PDF,6X4_thermal,8X4_CI_PDF,8X4_CI_thermal',
+            'enumeration' => '8X4_A4_PDF,8X4_thermal,8X4_PDF,8X4_A4_TC_PDF,6X4_A4_PDF,6X4_thermal,8X4_CI_PDF,8X4_CI_thermal',
         ],
         'Logo' => [
             'type' => 'YesNo',

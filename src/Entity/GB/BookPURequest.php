@@ -27,7 +27,19 @@ class BookPURequest extends Base
      * @var string
      * Service XSD
      */
-    protected $service_xsd = 'BookPURequest.xsd';
+    protected $service_xsd = 'book-pickup-global-req-3.0';
+
+    /**
+     * @var string
+     * The schema version
+     */
+    protected $schema_version = '3.0';
+
+    /**
+     * Display Schema version or not
+     * @var boolean
+     */
+    protected $display_schema_version = true;
 
     /**
      * Parameters to be send in the body
@@ -44,9 +56,9 @@ class BookPURequest extends Base
             'enumeration' => 'AP,EU,AM',
         ],
         'Requestor' => [
-            'type' => 'string',
+            'type' => 'Requestor',
             'required' => false,
-            'subobject' => false,
+            'subobject' => true,
         ],
         'Place' => [
             'type' => 'Place',
@@ -54,19 +66,26 @@ class BookPURequest extends Base
             'subobject' => true,
         ],
         'Pickup' => [
-            'type' => 'string',
-            'required' => false,
-            'subobject' => false,
-        ],
-        'PickupContact' => [
-            'type' => 'string',
-            'required' => false,
-            'subobject' => false,
-        ],
-        'ShipmentDetails' => [
-            'type' => 'ShipmentDetails',
+            'type' => 'Pickup',
             'required' => false,
             'subobject' => true,
+        ],
+        'PickupContact' => [
+            'type' => 'PickupContact',
+            'required' => false,
+            'subobject' => true,
+        ],
+        'ShipmentDetails' => [
+            'type' => 'PUShipmentDetails',
+            'required' => false,
+            'subobject' => true,
+        ],
+        'SpecialService' => [
+            'disableParentNode' => true,
+            'multivalues'       => true,
+            'type'              => 'SpecialService',
+            'required'          => false,
+            'subobject'         => true,
         ],
     ];
 }

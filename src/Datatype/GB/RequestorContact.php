@@ -2,13 +2,21 @@
 
 namespace Mtc\Dhl\Datatype\GB;
 
+use Mtc\Dhl\Datatype\Base;
+
 /**
- * Class Contact
+ * Class RequestorContact
  *
- * @package Mtc\Dhl
+ * @package Mtc\Dh
  */
-class Contact extends \Mtc\Dhl\Datatype\AM\Contact
+class RequestorContact extends Base
 {
+    /**
+     * Is this object a subobject
+     * @var boolean
+     */
+    protected $_isSubobject = true;
+
     /**
      * Parameters of the datatype
      * @var array
@@ -20,13 +28,6 @@ class Contact extends \Mtc\Dhl\Datatype\AM\Contact
             'subobject' => false,
             'comment' => 'Name',
             'maxLength' => '35',
-        ],
-        'PhoneNumber' => [
-            'type' => 'PhoneNumber',
-            'required' => false,
-            'subobject' => false,
-            'comment' => 'Phone Number',
-            'maxLength' => '25',
         ],
         'Phone' => [
             'type' => 'PhoneNumber',

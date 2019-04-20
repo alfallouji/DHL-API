@@ -27,8 +27,14 @@ class CancelPURequest extends Base
      * @var string
      * Service XSD
      */
-    protected $service_xsd = 'CancelPURequest.xsd';
+    protected $service_xsd = 'cancel-pickup-global-req-3.0';
 
+    /**
+     * Display Schema version or not
+     * @var boolean
+     */
+    protected $display_schema_version = true;
+    
     /**
      * Parameters to be send in the body
      * @var array

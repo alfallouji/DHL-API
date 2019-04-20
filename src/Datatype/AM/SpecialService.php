@@ -21,7 +21,7 @@ class SpecialService extends Base
      */
     protected $params = [
         'SpecialServiceType' => [
-            'type' => 'SpecialServiceType',
+            'type' => 'string',
             'required' => false,
             'subobject' => false,
             'comment' => 'Special Service codes',
