@@ -60,11 +60,13 @@ class Web
         curl_setopt($ch, CURLOPT_POSTFIELDS, $request->toXML());
         $result = curl_exec($ch);
 
+        error_log($request->toXML(), null, './dhl_logs');
         if (curl_error($ch)) {
             return false;
         } else {
             curl_close($ch);
         }
+        error_log($result, null, './dhl_logs');
 
         return $result;
     }

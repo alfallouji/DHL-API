@@ -203,7 +203,7 @@ abstract class Base extends BaseDataType
         }
 
         $parts = explode('\\', get_class($this));
-        $className = array_pop($parts);
+        $class_name = array_pop($parts);
         foreach ($xml->children() as $child) {
             $child_name = $child->getName();
             switch ($child_name) {
@@ -260,9 +260,12 @@ abstract class Base extends BaseDataType
                     $tmp = get_class($this);
                     $parts = explode('\\', $tmp);
                     array_pop($parts);
-                    $className = implode('\\', $parts) . '\\' . $infos['type'];
-                    $className = str_replace('Entity', 'Datatype', $className);
-                    $this->values[$name] = new $className();
+                    $class_name = implode('\\', $parts) . '\\' . $infos['type'];
+                    $class_name = str_replace('Entity', 'Datatype', $class_name);
+                    if (!class_exists($class_name)) {
+                        $class_name = str_replace(['\\GB\\', '\\AP\\', '\\EA\\'], '\\AM\\', $class_name);
+                    }
+                    $this->values[$name] = new $class_name();
                 }
             } else {
                 $this->values[$name] = null;

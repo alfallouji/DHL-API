@@ -33,7 +33,7 @@ class RouteRequest extends Base
      * Display Schema version or not
      * @var boolean
      */
-    protected $_displaySchemaVersion = true;
+    protected $display_schema_version = true;
 
     /**
      * Parameters to be send in the body

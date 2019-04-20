@@ -80,25 +80,25 @@ abstract class Base
 
         $xmlWriter->startElement($parentNode);
 
-        foreach ($this->_params as $name => $infos) {
+        foreach ($this->params as $name => $infos) {
             if ($this->$name) {
                 if (is_object($this->$name)) {
                     $this->$name->toXML($xmlWriter);
                 } elseif (is_array($this->$name)) {
-                    if ('string' == $this->_params[$name]['type']) {
-                        foreach ($this->$name as $subelement) {
-                            $xmlWriter->writeElement($name, $subelement);
+                    if ('string' == $this->params[$name]['type']) {
+                        foreach ($this->$name as $sub_element) {
+                            $xmlWriter->writeElement($name, $sub_element);
                         }
                     } else {
-                        if (!isset($this->_params[$name]['disableParentNode']) || false == $this->_params[$name]['disableParentNode']) {
+                        if (!isset($this->params[$name]['disableParentNode']) || false == $this->params[$name]['disableParentNode']) {
                             $xmlWriter->startElement($name);
                         }
 
-                        foreach ($this->$name as $subelement) {
-                            $subelement->toXML($xmlWriter);
+                        foreach ($this->$name as $sub_element) {
+                            $sub_element->toXML($xmlWriter);
                         }
 
-                        if (!isset($this->_params[$name]['disableParentNode']) || false == $this->_params[$name]['disableParentNode']) {
+                        if (!isset($this->params[$name]['disableParentNode']) || false == $this->params[$name]['disableParentNode']) {
                             $xmlWriter->endElement();
                         }
                     }
@@ -123,23 +123,25 @@ abstract class Base
         $xml = simplexml_load_string(str_replace('req:', '', $xml));
         $parts = explode('\\', get_class($this));
         $className = array_pop($parts);
+        dd($className);
         foreach ($xml->children() as $child) {
             $childName = $child->getName();
 
             if (isset($this->$childName) && is_object($this->$childName)) {
                 $this->$childName->initFromXml($child->asXML());
-            } elseif (isset($this->_params[$childName]['multivalues']) && $this->_params[$childName]['multivalues']) {
-                foreach ($child->children() as $subchild) {
-                    $subchildName = $subchild->getName();
-                    $childClassname = implode('\\', $parts) . '\\' . $this->_params[$subchildName]['type'];
-                    $childClassname = str_replace('Entity', 'Datatype', $childClassname);
-                    if ('string' == $this->_params[$subchildName]['type']) {
-                        $childObj = trim((string)$subchild);
+            } elseif (isset($this->params[$childName]['multivalues']) && $this->params[$childName]['multivalues']) {
+                foreach ($child->children() as $sub_child) {
+                    $sub_child_name = $sub_child->getName();
+                    $child_class_name = implode('\\', $parts) . '\\' . $this->params[$sub_child_name]['type'];
+                    $child_class_name = str_replace('Entity', 'Datatype', $child_class_name);
+                    dd($child_class_name);
+                    if ('string' == $this->params[$sub_child_name]['type']) {
+                        $childObj = trim((string)$sub_child);
                     } else {
-                        $childObj = new $childClassname();
-                        $childObj->initFromXml($subchild->asXML());
+                        $childObj = new $child_class_name();
+                        $childObj->initFromXml($sub_child->asXML());
                     }
-                    $addMethodName = 'add' . ucfirst($subchildName);
+                    $addMethodName = 'add' . ucfirst($sub_child_name);
                     $this->$addMethodName($childObj);
                 }
             } elseif (isset($this->$childName) && ((string)$child)) {
@@ -161,10 +163,10 @@ abstract class Base
     {
         $key = str_replace('add', '', $name);
 
-        if (isset($this->_params[$key . 's'])
-            && $this->_params[$key . 's']['type'] != 'string'
-            && isset($this->_params[$key . 's']['multivalues'])
-            && true === $this->_params[$key . 's']['multivalues']) {
+        if (isset($this->params[$key . 's'])
+            && $this->params[$key . 's']['type'] !== 'string'
+            && isset($this->params[$key . 's']['multivalues'])
+            && true === $this->params[$key . 's']['multivalues']) {
             $key .= 's';
         }
 
@@ -179,7 +181,7 @@ abstract class Base
         $this->validateParameterType($key, $arguments[0]);
         $this->validateParameterValue($key, $arguments[0]);
 
-        if (isset($this->_params[$key]['multivalues']) && $this->_params[$key]['multivalues']) {
+        if (isset($this->params[$key]['multivalues']) && $this->params[$key]['multivalues']) {
             $this->values[$key][] = $arguments[0];
         } else {
             throw new \InvalidArgumentException('This is not a multivalues field : ' . $key . ' called via method ' . $name);
@@ -242,7 +244,7 @@ abstract class Base
      */
     protected function initializeValues()
     {
-        foreach ($this->_params as $name => $infos) {
+        foreach ($this->params as $name => $infos) {
             if (isset($infos['multivalues']) && $infos['multivalues']) {
                 $this->values[$name] = [];
             } elseif (isset($infos['subobject']) && $infos['subobject']) {
@@ -265,11 +267,11 @@ abstract class Base
      */
     protected function validateParameters()
     {
-        foreach ($this->_params as $name => $infos) {
+        foreach ($this->params as $name => $infos) {
             if ($this->values[$name]) {
                 if (is_array($this->values[$name]) && isset($infos['subobject']) && true === $infos['subobject']) {
-                    foreach ($this->values[$name] as $subelement) {
-                        $subelement->validateParameters();
+                    foreach ($this->values[$name] as $sub_element) {
+                        $sub_element->validateParameters();
                     }
                 } else {
                     $this->validateParameterType($name, $this->values[$name]);
@@ -296,18 +298,18 @@ abstract class Base
             return true;
         }
 
-        switch ($this->_params[$key]['type']) {
+        switch ($this->params[$key]['type']) {
             case 'string':
-                if (is_array($value) && isset($this->_params[$key]['multivalues']) && true === $this->_params[$key]['multivalues']) {
+                if (is_array($value) && isset($this->params[$key]['multivalues']) && true === $this->params[$key]['multivalues']) {
                     foreach ($value as $subvalue) {
                         if (null !== $subvalue && $subvalue !== (string)$subvalue) {
                             throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : '
-                                . $this->_params[$key]['type'] . ' but it has a value of : ' . $subvalue);
+                                . $this->params[$key]['type'] . ' but it has a value of : ' . $subvalue);
                         }
                     }
                 } elseif ($value !== (string)$value) {
                     throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : '
-                        . $this->_params[$key]['type'] . ' but it has a value of : ' . $value);
+                        . $this->params[$key]['type'] . ' but it has a value of : ' . $value);
                 }
                 break;
 
@@ -317,7 +319,7 @@ abstract class Base
                 $date = date(DATE_ISO8601, $timestamp);
                 if (strtotime($date) !== strtotime($value)) {
                     throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : '
-                        . $this->_params[$key]['type'] . ' but it has a value of : ' . $value);
+                        . $this->params[$key]['type'] . ' but it has a value of : ' . $value);
                 }
                 break;
 
@@ -326,19 +328,19 @@ abstract class Base
             case 'integer':
                 if (false === filter_var((int)$value, FILTER_VALIDATE_INT) && ((int)$value != $value)) {
                     throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : '
-                        . $this->_params[$key]['type'] . ' but it has a value of : ' . $value);
+                        . $this->params[$key]['type'] . ' but it has a value of : ' . $value);
                 }
                 break;
 
             default:
-                if (isset($this->_params[$key]['subobject']) && $this->_params[$key]['subobject']) {
+                if (isset($this->params[$key]['subobject']) && $this->params[$key]['subobject']) {
                     $currentClass = get_class($value);
                     $parts = explode('\\', $currentClass);
                     array_pop($parts);
-                    $className = str_replace('Entity', 'DataType', implode('\\', $parts) . '\\' . $this->_params[$key]['type']);
+                    $className = str_replace('Entity', 'DataType', implode('\\', $parts) . '\\' . $this->params[$key]['type']);
                     if (!$value instanceof $className) {
                         throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : '
-                            . $this->_params[$key]['type'] . ' but it has a value of : "' . print_r($value, true) . '"');
+                            . $this->params[$key]['type'] . ' but it has a value of : "' . print_r($value, true) . '"');
                     }
                 }
                 break;
@@ -358,7 +360,7 @@ abstract class Base
      */
     protected function validateParameterValue($key, $value)
     {
-        foreach ($this->_params[$key] as $type => $typeValue) {
+        foreach ($this->params[$key] as $type => $typeValue) {
             switch ($type) {
                 case 'enumeration':
                     $acceptedValues = explode(',', $typeValue);
