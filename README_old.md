@@ -1,9 +1,3 @@
-    
-## Authors & contact
-
-
-Al-Fallouji Bashar 
-    - bashar@alfallouji.com
 
     
 ## Documentation and download
