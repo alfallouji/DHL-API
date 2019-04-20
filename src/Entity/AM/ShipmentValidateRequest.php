@@ -33,7 +33,7 @@ class ShipmentValidateRequest extends Base
      * Parameters to be send in the body
      * @var array
      */
-    protected $_bodyParams = [
+    protected $body_params = [
         'RequestedPickupTime' => [
             'type' => 'string',
             'required' => false,

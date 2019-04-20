@@ -33,7 +33,7 @@ class ModifyPickupRequest extends Base
      * Parameters to be send in the body
      * @var array
      */
-    protected $_bodyParams = [
+    protected $body_params = [
         'ConfirmationNumber' => [
             'type' => 'string',
             'required' => false,

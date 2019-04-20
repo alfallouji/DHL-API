@@ -33,7 +33,7 @@ class ShipmentCustRatingRequest extends Base
      * Parameters to be send in the body
      * @var array
      */
-    protected $_bodyParams = [
+    protected $body_params = [
         'Billing' => [
             'type' => 'Billing',
             'required' => false,

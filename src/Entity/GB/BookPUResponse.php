@@ -33,7 +33,7 @@ class BookPUResponse extends Base
      * Parameters to be send in the body
      * @var array
      */
-    protected $_bodyParams = [
+    protected $body_params = [
         'Response' => [
             'type' => 'Response',
             'required' => false,

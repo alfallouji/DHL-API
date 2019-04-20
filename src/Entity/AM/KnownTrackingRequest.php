@@ -33,7 +33,7 @@ class KnownTrackingRequest extends Base
      * Parameters to be send in the body
      * @var array
      */
-    protected $_bodyParams = [
+    protected $body_params = [
         'LanguageCode' => [
             'type' => 'string',
             'required' => false,

@@ -33,7 +33,7 @@ class RoutingRequest extends Base
      * Parameters to be send in the body
      * @var array
      */
-    protected $_bodyParams = [
+    protected $body_params = [
         'RequestType' => [
             'type' => 'string',
             'required' => false,

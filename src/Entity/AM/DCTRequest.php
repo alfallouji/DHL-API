@@ -33,7 +33,7 @@ class DCTRequest extends Base
      * Parameters to be send in the body
      * @var array
      */
-    protected $_bodyParams = [
+    protected $body_params = [
         'GetCapability' => [
             'type' => 'GetCapability',
             'required' => false,

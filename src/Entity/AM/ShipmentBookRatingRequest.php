@@ -33,7 +33,7 @@ class ShipmentBookRatingRequest extends Base
      * Parameters to be send in the body
      * @var array
      */
-    protected $_bodyParams = [
+    protected $body_params = [
         'Shipper' => [
             'type' => 'Shipper',
             'required' => false,

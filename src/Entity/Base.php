@@ -1,4 +1,5 @@
 <?php
+
 namespace Mtc\Dhl\Entity;
 
 use InvalidArgumentException;
@@ -6,7 +7,7 @@ use Mtc\Dhl\Datatype\Base as BaseDataType;
 
 /**
  * Class Base
- * 
+ *
  * @package Mtc\Dhl
  */
 abstract class Base extends BaseDataType
@@ -69,7 +70,7 @@ abstract class Base extends BaseDataType
 
     /**
      * Is object a subobject or not
-     * 
+     *
      * @var boolean
      */
     protected $is_sub_object;
@@ -78,7 +79,7 @@ abstract class Base extends BaseDataType
      * @var string
      * The schema version
      */
-    protected $schema_version = '1.0';
+    protected $schema_version = '6.2';
 
     /**
      * @var boolean

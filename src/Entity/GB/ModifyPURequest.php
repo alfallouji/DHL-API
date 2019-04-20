@@ -33,7 +33,7 @@ class ModifyPURequest extends Base
      * Parameters to be send in the body
      * @var array
      */
-    protected $_bodyParams = [
+    protected $body_params = [
         'RegionCode' => [
             'type' => 'string',
             'required' => false,
