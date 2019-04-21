@@ -24,15 +24,15 @@ DHL XML Services Test Harness: https://xmlpi-validation.dhl.com/serviceval/jsps/
 
 DHL XML Services Test server for customer certification: https://xmlpitest-ea.dhl.com/XMLShippingServlet
 
-[Quote Requests](docs/quote.md)
+[Quote Requests (v6.1)](docs/quote.md)
 
-[Route Requests](docs/route.md)
+[Route Requests (v1.0)](docs/route.md)
 
-[Shipment Requests](docs/shipment.md)
+[Shipment Requests (v6.2)](docs/shipment.md)
 
-[Pickup Request](docs/pickup.md)
+[Pickup Request (v1.0)](docs/pickup.md)
 
-[Tracking Requests](docs/tracking.md)
+[Tracking Requests (v1.0)](docs/tracking.md)
 
 
 ## Contributing
