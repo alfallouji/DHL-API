@@ -15,15 +15,24 @@ Package requires a php min version of 7.0, however it has has been developed and
 
 ## Usage
 
-[Shipment Validation](docs/shipment_validation.md)
+You will need Sandbox account to start setup. 
+You can request your unique credentials by registering for the XML Portal  https://xmlportal.dhl.com/register
+
+DHL Documentation: http://xmlpitest-ea.dhl.com/toolkit/Toolkit.zip
+
+DHL XML Services Test Harness: https://xmlpi-validation.dhl.com/serviceval/jsps/main/Main_menu.jsp
+
+DHL XML Services Test server for customer certification: https://xmlpitest-ea.dhl.com/XMLShippingServlet
+
+[Quote Requests](docs/quote.md)
+
+[Route Requests](docs/route.md)
 
 [Shipment Requests](docs/shipment.md)
 
+[Pickup Request](docs/pickup.md)
+
 [Tracking Requests](docs/tracking.md)
-
-[Capability Requests](docs/capability.md)
-
-[DHL Test Pack](docs/test_pack.md)
 
 
 ## Contributing
