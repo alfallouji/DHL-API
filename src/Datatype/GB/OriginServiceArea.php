@@ -9,6 +9,11 @@ namespace Mtc\Dhl\Datatype\GB;
  */
 class OriginServiceArea extends \Mtc\Dhl\Datatype\AM\OriginServiceArea
 {
+    /**
+     * Is this object a subobject
+     * @var boolean
+     */
+    protected $_isSubobject = true;
 
     /**
      * Parameters of the datatype

@@ -27,13 +27,7 @@ class BookPURequest extends Base
      * @var string
      * Service XSD
      */
-    protected $service_xsd = 'book-pickup-global-req-3.0';
-
-    /**
-     * @var string
-     * The schema version
-     */
-    protected $schema_version = '3.0';
+    protected $service_xsd = 'book-pickup-global-req_EA.xsd';
 
     /**
      * Display Schema version or not
@@ -80,12 +74,11 @@ class BookPURequest extends Base
             'required' => false,
             'subobject' => true,
         ],
-        'SpecialService' => [
-            'disableParentNode' => true,
-            'multivalues'       => true,
-            'type'              => 'SpecialService',
-            'required'          => false,
-            'subobject'         => true,
-        ],
+        'ConsigneeDetails' => [
+            'type' => 'Consignee',
+            'required' => false,
+            'subobject' => true,
+
+        ]
     ];
 }
