@@ -27,7 +27,7 @@ class RouteRequest extends Base
      * @var string
      * Service XSD
      */
-    protected $service_xsd = 'RouteRequest.xsd';
+    protected $service_xsd = 'routing-global-req-2.0.xsd';
 
     /**
      * Display Schema version or not

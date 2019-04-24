@@ -49,6 +49,12 @@ abstract class Base extends BaseDataType
     ];
 
     /**
+     * Parameters to be used in the header
+     * @var array
+     */
+    protected $header_meta_params = [];
+
+    /**
      * Parameters to be used in the body
      *
      * @var array
@@ -104,7 +110,7 @@ abstract class Base extends BaseDataType
      */
     public function __construct()
     {
-        $this->params = array_merge($this->header_params, $this->body_params);
+        $this->params = array_merge($this->header_params, $this->header_meta_params, $this->body_params);
         $this->initializeValues();
     }
 
@@ -142,8 +148,16 @@ abstract class Base extends BaseDataType
         foreach ($this->header_params as $name => $infos) {
             $xml_writer->writeElement($name, $this->$name);
         }
-        $xml_writer->endElement(); // End of Request
         $xml_writer->endElement(); // End of ServiceHeader
+
+        if (!empty($this->header_meta_params)) {
+            $xml_writer->startElement('MetaData');
+            foreach ($this->header_meta_params as $name => $infos) {
+                $xml_writer->writeElement($name, $this->$name);
+            }
+            $xml_writer->endElement(); // End of MetaData
+        }
+        $xml_writer->endElement(); // End of Request
 
         foreach ($this->body_params as $name => $infos) {
             if ($this->$name) {
