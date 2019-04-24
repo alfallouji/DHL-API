@@ -36,6 +36,28 @@ class ShipmentRequest extends Base
     protected $display_schema_version = true;
 
     /**
+     * @var array
+     */
+    protected $header_meta_params = [
+        'SoftwareName' => [
+            'type' => 'string',
+            'required' => true,
+            'subobject' => false,
+        ],
+        'SoftwareVersion' => [
+            'type' => 'string',
+            'required' => true,
+            'subobject' => false,
+        ],
+    ];
+
+    /**
+     * @var string
+     * The schema version
+     */
+    protected $schema_version = '6.2';
+
+    /**
      * Parameters to be send in the body
      * @var array
      */
