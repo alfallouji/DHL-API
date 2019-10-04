@@ -183,6 +183,14 @@ class ShipmentRequest extends Base
             'type' => 'Label',
             'required' => false,
             'subobject' => true,
-        ), 
+        ),
+        'UseDHLInvoice' => array(
+            'type' => 'YesNo',
+            'required' => false,
+            'subobject' => false,
+            'comment' => 'Boolean flag',
+            'length' => '1',
+            'enumeration' => 'Y,N',
+        ),
     );
 }
