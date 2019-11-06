@@ -22,7 +22,7 @@
  * @version     0.1
  */
 
-namespace DHL\Datatype\GB; 
+namespace DHL\Datatype\GB;
 use DHL\Datatype\Base;
 
 /**
@@ -48,31 +48,31 @@ class ExportLineItem extends Base
             'comment' => '',
             'minInclusive' => '1',
             'maxInclusive' => '200',
-        ), 
+        ),
         'Quantity' => array(
             'type' => 'Quantity',
             'required' => false,
             'subobject' => false,
             'comment' => 'Quantity',
             'maxInclusive' => '32000',
-        ), 
+        ),
         'QuantityUnit' => array(
             'type' => 'QuantityUnit',
             'required' => false,
             'subobject' => false,
             'comment' => 'Quantity unit of measure (tens, hundreds, thousands, etc.)',
             'maxLength' => '8',
-        ), 
+        ),
         'Description' => array(
             'type' => '',
             'required' => false,
             'subobject' => false,
-        ), 
+        ),
         'Value' => array(
             'type' => '',
             'required' => false,
             'subobject' => false,
-        ), 
+        ),
         'IsDomestic' => array(
             'type' => 'YesNo',
             'required' => false,
@@ -80,7 +80,7 @@ class ExportLineItem extends Base
             'comment' => 'Boolean flag',
             'length' => '1',
             'enumeration' => 'Y,N',
-        ), 
+        ),
         'CommodityCode' => array(
             'type' => 'CommodityCode',
             'required' => false,
@@ -88,35 +88,53 @@ class ExportLineItem extends Base
             'comment' => 'Commodity codes for shipment type',
             'minLength' => '1',
             'maxLength' => '20',
-        ), 
+        ),
         'ScheduleB' => array(
             'type' => 'ScheduleB',
             'required' => false,
             'subobject' => false,
             'comment' => 'Schedule B numner',
             'maxLength' => '15',
-        ), 
+        ),
         'ECCN' => array(
             'type' => '',
             'required' => false,
             'subobject' => false,
-        ), 
-        'Weight' => array(
-            'type' => '',
-            'required' => false,
+        ),
+        'Weight' => [
+            'type'           => 'Weight',
+            'required'       => false,
+            'subobject'      => false,
+            'comment'        => 'Weight of piece or shipment',
+            'fractionDigits' => '3',
+            'minInclusive'   => '0.000',
+            'totalDigits'    => '10',
+        ],
+        'WeightUnit' => [
+            'type'        => 'WeightUnit',
+            'required'    => false,
+            'subobject'   => false,
+            'comment'     => 'Unit of weight measurement (K:KiloGram)',
+            'minLength'   => '0',
+            'maxLength'   => '1',
+            'enumeration' => 'K,L',
+        ],
+        'GrossWeight' => [
+            'type'      => '',
+            'required'  => false,
             'subobject' => false,
-        ), 
+        ],
         'License' => array(
             'type' => '',
             'required' => false,
             'subobject' => false,
-        ), 
+        ),
         'LicenseSymbol' => array(
             'type' => 'LicenseNumber',
             'required' => false,
             'subobject' => false,
             'comment' => 'Export license number',
             'maxLength' => '16',
-        ), 
+        ),
     );
 }
