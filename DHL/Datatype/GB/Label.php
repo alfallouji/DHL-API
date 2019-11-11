@@ -22,7 +22,7 @@
  * @version     0.1
  */
 
-namespace DHL\Datatype\GB; 
+namespace DHL\Datatype\GB;
 use DHL\Datatype\Base;
 
 /**
@@ -41,13 +41,29 @@ class Label extends Base
      * @var array
      */
     protected $_params = array(
+        'HideAccount' => array(
+            'type' => 'HideAccount',
+            'required' => false,
+            'subobject' => false,
+        ),
         'LabelTemplate' => array(
             'type' => 'LabelTemplate',
             'required' => false,
             'subobject' => false,
             'comment' => 'LabelTemplate',
-            'enumeration' => '8X4_A4_PDF,8X4_thermal,8X4_A4_TC_PDF,6X4_A4_PDF,6X4_thermal,8X4_CI_PDF,8X4_CI_thermal',
-        ), 
+            'enumeration' => '8X4_A4_PDF,8X4_thermal,8X4_A4_TC_PDF,6X4_thermal,6X4_A4_PDF,8X4_CI_PDF,8X4_CI_thermal,8X4_RU_A4_PDF,6X4_PDF,8X4_PDF,8X4_CustBarCode_PDF,8X4_CustBarCode_thermal,8X4_CustBarCode_AdditionalInfo_PDF,8X4_CustBarCode_AdditionalInfo_thermal',
+        ),
+        'ReceiptTemplate' => array(
+            'type' => 'ReceiptTemplate',
+            'required' => false,
+            'subobject' => false,
+        ),
+        'DocDetach' => array(
+            'type' => 'DocDetach',
+            'required' => false,
+            'subobject' => false,
+        ),
+        ),
         'Logo' => array(
             'type' => 'YesNo',
             'required' => false,
@@ -55,12 +71,12 @@ class Label extends Base
             'comment' => 'Boolean flag',
             'length' => '1',
             'enumeration' => 'Y,N',
-        ), 
+        ),
         'CustomerLogo' => array(
             'type' => 'CustomerLogo',
             'required' => false,
-            'subobject' => true,
-        ), 
+            'subobject' => false,
+        ),
         'Resolution' => array(
             'type' => 'Resolution',
             'required' => false,
@@ -68,6 +84,21 @@ class Label extends Base
             'comment' => 'Resolution',
             'minInclusive' => '200',
             'maxInclusive' => '300',
-        ), 
+        ),
+        'CustomerBarcodeType' => array(
+            'type' => 'CustomerBarcodeType',
+            'required' => false,
+            'subobject' => false,
+        ),
+        'CustomerBarcodeCode' => array(
+            'type' => 'CustomerBarcodeCode',
+            'required' => false,
+            'subobject' => false,
+        ),
+        'CustomerBarcodeText' => array(
+            'type' => 'CustomerBarcodeText',
+            'required' => false,
+            'subobject' => false,
+        ),
     );
 }
