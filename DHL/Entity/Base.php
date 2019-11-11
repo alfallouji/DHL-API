@@ -106,7 +106,13 @@ abstract class Base extends BaseDataType
      * @var boolean
      * Render the schema version or not
      */
-    protected $_displaySchemaVersion = true;
+     protected $_displaySchemaVersion = true;
+
+    /**
+     * @var boolean
+     * Render the schema version or not
+     */
+    protected $_displayMetaData = true;
 
     /**
      * Parent node name of the object
@@ -167,10 +173,12 @@ abstract class Base extends BaseDataType
             $xmlWriter->writeElement($name, $this->$name);
         }
         $xmlWriter->endElement(); // End of Request
-        $xmlWriter->startElement('MetaData');
-        $xmlWriter->writeElement('SoftwareName', '3PV');
-        $xmlWriter->writeElement('SoftwareVersion', $this->_softwareVersion);
-        $xmlWriter->endElement(); // End of MetaData
+        if ($this->_displayMetaData) {
+            $xmlWriter->startElement('MetaData');
+            $xmlWriter->writeElement('SoftwareName', '3PV');
+            $xmlWriter->writeElement('SoftwareVersion', $this->_softwareVersion);
+            $xmlWriter->endElement(); // End of MetaData
+        }
 
         $xmlWriter->endElement(); // End of ServiceHeader
 

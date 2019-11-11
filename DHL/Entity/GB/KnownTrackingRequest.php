@@ -22,7 +22,7 @@
  * @version     0.1
  */
 
-namespace DHL\Entity\GB; 
+namespace DHL\Entity\GB;
 use DHL\Entity\Base;
 
 /**
@@ -48,6 +48,12 @@ class KnownTrackingRequest extends Base
      */
     protected $_serviceXSD = 'KnownTrackingRequest.xsd';
 
+     /**
+     * Display the metadata element
+     * @var boolean
+     */
+    protected $_displayMetaData = false;
+
     /**
      * Parameters to be send in the body
      * @var array
@@ -59,39 +65,39 @@ class KnownTrackingRequest extends Base
             'subobject' => false,
             'comment' => 'ISO Language Code',
             'maxLength' => '2',
-        ), 
+        ),
         'AWBNumber' => array(
             'type' => 'string',
             'required' => false,
             'subobject' => false,
             'comment' => 'Airway bill number',
             'maxLength' => '10',
-        ), 
+        ),
         'LPNumber' => array(
             'type' => 'string',
             'required' => false,
             'subobject' => false,
-        ), 
+        ),
         'LevelOfDetails' => array(
             'type' => 'string',
             'required' => false,
             'subobject' => false,
             'comment' => 'Checkpoint details selection flag',
             'enumeration' => 'LAST_CHECK_POINT_ONLY,ALL_CHECK_POINTS',
-        ), 
+        ),
         'PiecesEnabled' => array(
             'type' => 'string',
             'required' => false,
             'subobject' => false,
             'comment' => 'Pieces Enabling Flag',
             'enumeration' => 'S,B,P',
-        ), 
+        ),
         'CountryCode' => array(
             'type' => 'string',
             'required' => false,
             'subobject' => false,
             'comment' => 'ISO country codes',
             'length' => '2',
-        ), 
+        ),
     );
 }
