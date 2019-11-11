@@ -314,7 +314,7 @@ class ExportDeclaration extends Base
         'ShipmentDocument' => array(
             'type' => 'ShipmentDocument',
             'required' => false,
-            'subobject' => true,
+            'subobject' => false,
         ),
     );
 }

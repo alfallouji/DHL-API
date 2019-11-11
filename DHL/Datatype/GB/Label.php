@@ -63,7 +63,6 @@ class Label extends Base
             'required' => false,
             'subobject' => false,
         ),
-        ),
         'Logo' => array(
             'type' => 'YesNo',
             'required' => false,
