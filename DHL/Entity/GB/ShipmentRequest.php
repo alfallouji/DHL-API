@@ -52,7 +52,13 @@ class ShipmentRequest extends Base
      * @var string
      * The schema version
      */
-    protected $_schemaVersion = '1.0';
+    protected $_schemaVersion = '6.2';
+
+    /**
+     * @var string
+     * The software version
+     */
+    protected $_softwareVersion = '6.2';
 
     /**
      * Display the schema version
@@ -118,12 +124,21 @@ class ShipmentRequest extends Base
             'required' => false,
             'subobject' => true,
         ),
-        'UseDHLInvoice' => [
-            'type'        => 'string',
-            'required'    => false,
-            'subobject'   => false,
-            'enumeration' => 'Y,N',
-        ],
+        'UseDHLInvoice' => array(
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+        ),
+        'DHLInvoiceLanguageCode' => array(
+            'type' => 'InvLanguageCode',
+            'required' => false,
+            'subobject' => false,
+        ),
+        'DHLInvoiceType' => array(
+            'type' => 'InvoiceType',
+            'required' => false,
+            'subobject' => false,
+        ),
         'ExportDeclaration' => array(
             'type' => 'ExportDeclaration',
             'required' => false,

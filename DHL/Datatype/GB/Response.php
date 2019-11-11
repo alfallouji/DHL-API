@@ -22,7 +22,7 @@
  * @version     0.1
  */
 
-namespace DHL\Datatype\GB; 
+namespace DHL\Datatype\GB;
 use DHL\Datatype\Base;
 
 /**
@@ -45,6 +45,11 @@ class Response extends Base
             'type' => 'ResponseServiceHeader',
             'required' => false,
             'subobject' => true,
-        ), 
+        ),
+        'MetaData' => array(
+            'type' => 'MetaData',
+            'required' => true,
+            'subobject' => true,
+        ),
     );
 }
