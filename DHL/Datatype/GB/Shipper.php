@@ -143,6 +143,13 @@ class Shipper extends Base
             'required' => false,
             'subobject' => false,
         ),
+        'EORI_No' => array(
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+            'comment' => 'EORI number',
+            'maxLength' => '20',
+        ),
         'Contact' => array(
             'type' => 'Contact',
             'required' => false,

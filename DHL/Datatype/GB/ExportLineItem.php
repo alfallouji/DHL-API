@@ -136,5 +136,19 @@ class ExportLineItem extends Base
             'comment' => 'Export license number',
             'maxLength' => '16',
         ),
+        'ManufactureCountryCode' => array(
+            'type' => '',
+            'required' => false,
+            'subobject' => false,
+            'comment' => 'ISO country codes',
+            'length' => '2',
+        ),
+        'ManufactureCountryName' => array(
+            'type' => '',
+            'required' => false,
+            'subobject' => false,
+            'comment' => 'ISO country name',
+            'maxLength' => '35',
+        ),
     );
 }

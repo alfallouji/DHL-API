@@ -78,7 +78,7 @@ class ExportDeclaration extends Base
             'required' => false,
             'subobject' => false,
             'comment' => 'Export reason',
-            'length' => '1',
+            'maxLength' => '30',
         ),
         'ExportReasonCode' => array(
             'type' => 'ExportReasonCode',
