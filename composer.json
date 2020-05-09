@@ -1,5 +1,5 @@
 {
-    "name": "alfallouji/dhl_api",
+    "name": "mutahhar/dhl-api",
 
     "description": "PHP library to communicate with the DHL XML Services.",
 
@@ -9,11 +9,11 @@
 
     "license": "LGPL-2.1",
 
-	"autoload": {
+    "autoload": {
         "classmap" : [ "DHL" ]
-	},
+    },
 
-	"authors": [
+    "authors": [
         {
             "name": "Bashar Al-Fallouji",
             "email": "bashar@alfallouji.com"
