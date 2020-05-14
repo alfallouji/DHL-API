@@ -22,7 +22,7 @@
  * @version     0.1
  */
 
-namespace DHL\Datatype\AM; 
+namespace DHL\Datatype\AM;
 use DHL\Datatype\Base;
 
 /**
@@ -45,7 +45,7 @@ class ExportDeclaration extends Base
             'type' => '',
             'required' => false,
             'subobject' => false,
-        ), 
+        ),
         'IsPartiesRelation' => array(
             'type' => 'YesNo',
             'required' => false,
@@ -53,33 +53,33 @@ class ExportDeclaration extends Base
             'comment' => 'Boolean flag',
             'length' => '1',
             'enumeration' => 'Y,N',
-        ), 
+        ),
         'ECCN' => array(
             'type' => '',
             'required' => false,
             'subobject' => false,
-        ), 
+        ),
         'SignatureName' => array(
             'type' => 'SignatureName',
             'required' => false,
             'subobject' => false,
             'comment' => 'Signature name',
             'maxLength' => '35',
-        ), 
+        ),
         'SignatureTitle' => array(
             'type' => 'SignatureTitle',
             'required' => false,
             'subobject' => false,
             'comment' => 'Signature title',
             'maxLength' => '35',
-        ), 
+        ),
         'ExportReason' => array(
             'type' => 'ExportReason',
             'required' => false,
             'subobject' => false,
             'comment' => 'Export reason',
             'length' => '1',
-        ), 
+        ),
         'ExportReasonCode' => array(
             'type' => 'ExportReasonCode',
             'required' => false,
@@ -87,14 +87,14 @@ class ExportDeclaration extends Base
             'comment' => 'Export reason code (P:Permanent, T:Temporary, R:Re-Export)',
             'length' => '1',
             'enumeration' => 'P,T,R',
-        ), 
+        ),
         'SedNumber' => array(
             'type' => 'SEDNumber',
             'required' => false,
             'subobject' => false,
             'comment' => '',
             'enumeration' => 'FTSR,XTN,SAS',
-        ), 
+        ),
         'SedNumberType' => array(
             'type' => 'SEDNumberType',
             'required' => false,
@@ -102,16 +102,42 @@ class ExportDeclaration extends Base
             'comment' => '',
             'length' => '1',
             'enumeration' => 'F,X,S',
-        ), 
+        ),
         'MxStateCode' => array(
             'type' => '',
             'required' => false,
             'subobject' => false,
-        ), 
+        ),
         'ExportLineItem' => array(
             'type' => 'ExportLineItem',
             'required' => false,
             'subobject' => true,
-        ), 
+            'multivalues' => true,
+        ),
+        'InvoiceNumber' => array(
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+        ),
+        'InvoiceDate' => array(
+            'type' => 'date',
+            'required' => false,
+            'subobject' => false,
+        ),
+        'OtherCharges1' => array(
+            'type' => 'number',
+            'required' => false,
+            'subobject' => false,
+        ),
+        'OtherCharges2' => array(
+            'type' => 'number',
+            'required' => false,
+            'subobject' => false,
+        ),
+        'OtherCharges3' => array(
+            'type' => 'number',
+            'required' => false,
+            'subobject' => false,
+        ),
     );
 }
