@@ -49,6 +49,18 @@ class ShipmentValidateRequest extends Base
     protected $_serviceXSD = 'ShipmentValidateRequest.xsd';
 
     /**
+     * @var string
+     * The schema version
+     */
+    protected $_schemaVersion = '6.2';
+
+    /**
+     * Display the schema version
+     * @var boolean
+     */
+    protected $_displaySchemaVersion = true;
+
+    /**
      * Parameters to be send in the body
      * @var array
      */
