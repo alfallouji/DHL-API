@@ -15,7 +15,7 @@
  */
 
 /**
- * File:        ShipmentValidateRequest.php
+ * File:        ShipmentRequest.php
  * Project:     DHL API
  *
  * @author      Al-Fallouji Bashar
@@ -26,9 +26,9 @@ namespace DHL\Entity\AM;
 use DHL\Entity\Base;
 
 /**
- * ShipmentValidateRequest Request model for DHL API
+ * ShipmentRequest Request model for DHL API
  */
-class ShipmentValidateRequest extends Base
+class ShipmentRequest extends Base
 {
     /**
      * Is this object a subobject
@@ -40,13 +40,13 @@ class ShipmentValidateRequest extends Base
      * Name of the service
      * @var string
      */
-    protected $_serviceName = 'ShipmentValidateRequest';
+    protected $_serviceName = 'ShipmentRequest';
 
     /**
      * @var string
      * Service XSD
      */
-    protected $_serviceXSD = 'ShipmentValidateRequest.xsd';
+    protected $_serviceXSD = 'ShipmentRequest.xsd';
 
     /**
      * @var string
