@@ -108,13 +108,6 @@ class ExportDeclaration extends Base
             'required' => false,
             'subobject' => false,
         ),
-        'ExportLineItem' => array(
-            'type' => 'ExportLineItem',
-            'required' => false,
-            'subobject' => true,
-            'multivalues' => true,
-            'disableParentNode' => true,
-        ),
         'InvoiceNumber' => array(
             'type' => 'string',
             'required' => false,
@@ -139,6 +132,13 @@ class ExportDeclaration extends Base
             'type' => 'number',
             'required' => false,
             'subobject' => false,
+        ),
+        'ExportLineItem' => array(
+            'type' => 'ExportLineItem',
+            'required' => false,
+            'subobject' => true,
+            'multivalues' => true,
+            'disableParentNode' => true,
         ),
     );
 }
