@@ -105,12 +105,12 @@ class ExportLineItem extends Base
             'subobject' => false,
         ),
         'Weight' => array(
-            'type' => 'WeightSeg',
+            'type' => 'Weight',
             'required' => false,
             'subobject' => true,
         ),
         'GrossWeight' => array(
-            'type' => 'WeightSeg',
+            'type' => 'GrossWeight',
             'required' => false,
             'subobject' => true,
         ),
