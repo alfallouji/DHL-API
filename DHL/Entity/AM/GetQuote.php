@@ -52,7 +52,7 @@ class GetQuote extends Base
      * @var string
      * The schema version
      */
-    protected $_schemaVersion = '6.2';
+    protected $_schemaVersion = '1.0';
 
     /**
      * Display the schema version
