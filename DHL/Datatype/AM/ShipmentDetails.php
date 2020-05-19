@@ -22,7 +22,7 @@
  * @version     0.1
  */
 
-namespace DHL\Datatype\AM; 
+namespace DHL\Datatype\AM;
 use DHL\Datatype\Base;
 
 /**
@@ -45,13 +45,13 @@ class ShipmentDetails extends Base
             'type' => 'positiveInteger',
             'required' => false,
             'subobject' => false,
-        ), 
+        ),
         'Pieces' => array(
             'type' => 'Piece',
             'required' => false,
             'subobject' => true,
             'multivalues' => true,
-        ), 
+        ),
         'Weight' => array(
             'type' => 'Weight',
             'required' => false,
@@ -60,7 +60,7 @@ class ShipmentDetails extends Base
             'fractionDigits' => '1',
             'maxInclusive' => '999999.9',
             'totalDigits' => '7',
-        ), 
+        ),
         'WeightUnit' => array(
             'type' => 'WeightUnit',
             'required' => false,
@@ -68,14 +68,14 @@ class ShipmentDetails extends Base
             'comment' => 'Unit of weight measurement (L:Pounds)',
             'length' => '1',
             'enumeration' => 'K,L',
-        ), 
+        ),
         'ProductCode' => array(
             'type' => 'ProductCode',
             'required' => false,
             'subobject' => false,
-            'comment' => 'DHL product code 
-			D : US Overnight  (>0.5 lb) and Worldwide Express Non-dutiable  (>0.5 lb) 
-			X : USA Express Envelope   (less than or  = 0.5 lb) and Worldwide Express-International Express Envelope  (less than or = 0.5 lb) 
+            'comment' => 'DHL product code
+			D : US Overnight  (>0.5 lb) and Worldwide Express Non-dutiable  (>0.5 lb)
+			X : USA Express Envelope   (less than or  = 0.5 lb) and Worldwide Express-International Express Envelope  (less than or = 0.5 lb)
 			W : Worldwide Express-Dutiable
 			Y : DHL Second Day Express . Must be Express Envelop with weight lessthan or = 0.5 lb
 			G : DHL Second Day . Weight > 0.5 lb or not an express envelop
@@ -83,14 +83,14 @@ class ShipmentDetails extends Base
             'pattern' => '([A-Z0-9])*',
             'minLength' => '1',
             'maxLength' => '4',
-        ), 
+        ),
         'GlobalProductCode' => array(
             'type' => 'ProductCode',
             'required' => false,
             'subobject' => false,
-            'comment' => 'DHL product code 
-			D : US Overnight  (>0.5 lb) and Worldwide Express Non-dutiable  (>0.5 lb) 
-			X : USA Express Envelope   (less than or  = 0.5 lb) and Worldwide Express-International Express Envelope  (less than or = 0.5 lb) 
+            'comment' => 'DHL product code
+			D : US Overnight  (>0.5 lb) and Worldwide Express Non-dutiable  (>0.5 lb)
+			X : USA Express Envelope   (less than or  = 0.5 lb) and Worldwide Express-International Express Envelope  (less than or = 0.5 lb)
 			W : Worldwide Express-Dutiable
 			Y : DHL Second Day Express . Must be Express Envelop with weight lessthan or = 0.5 lb
 			G : DHL Second Day . Weight > 0.5 lb or not an express envelop
@@ -98,7 +98,7 @@ class ShipmentDetails extends Base
             'pattern' => '([A-Z0-9])*',
             'minLength' => '1',
             'maxLength' => '4',
-        ), 
+        ),
         'LocalProductCode' => array(
             'type' => 'LocalProductCode',
             'required' => false,
@@ -106,20 +106,20 @@ class ShipmentDetails extends Base
             'comment' => '',
             'minLength' => '1',
             'maxLength' => '4',
-        ), 
+        ),
         'Date' => array(
             'type' => 'Date',
             'required' => false,
             'subobject' => false,
             'comment' => 'Date only',
-        ), 
+        ),
         'Contents' => array(
             'type' => 'ShipmentContents',
             'required' => false,
             'subobject' => false,
             'comment' => 'Shipment contents description',
             'maxLength' => '90',
-        ), 
+        ),
         'DoorTo' => array(
             'type' => 'DoorTo',
             'required' => false,
@@ -127,7 +127,7 @@ class ShipmentDetails extends Base
             'comment' => 'Defines the type of delivery service that applies to the shipment',
             'length' => '2',
             'enumeration' => 'DD,DA,AA,DC',
-        ), 
+        ),
         'DimensionUnit' => array(
             'type' => 'DimensionUnit',
             'required' => false,
@@ -135,7 +135,7 @@ class ShipmentDetails extends Base
             'comment' => 'Dimension Unit I (inches)',
             'length' => '1',
             'enumeration' => 'C,I',
-        ), 
+        ),
         'InsuredAmount' => array(
             'type' => 'Money',
             'required' => false,
@@ -143,7 +143,7 @@ class ShipmentDetails extends Base
             'comment' => 'Monetary amount (with 2 decimal precision)',
             'minInclusive' => '0.00',
             'maxInclusive' => '9999999999.99',
-        ), 
+        ),
         'PackageType' => array(
             'type' => 'PackageType',
             'required' => false,
@@ -151,7 +151,7 @@ class ShipmentDetails extends Base
             'comment' => 'Package Type (EE: DHL Express Envelope, OD:Other DHL Packaging, CP:Customer-provided.Ground shipments must choose CP)',
             'length' => '2',
             'enumeration' => 'EE,OD,CP',
-        ), 
+        ),
         'IsDutiable' => array(
             'type' => 'YesNo',
             'required' => false,
@@ -159,14 +159,14 @@ class ShipmentDetails extends Base
             'comment' => 'Boolean flag',
             'length' => '1',
             'enumeration' => 'Y,N',
-        ), 
+        ),
         'CurrencyCode' => array(
             'type' => 'CurrencyCode',
             'required' => false,
             'subobject' => false,
             'comment' => 'ISO currency code',
             'length' => '3',
-        ), 
+        ),
         'CustData' => array(
             'type' => 'CustData',
             'required' => false,
@@ -174,6 +174,6 @@ class ShipmentDetails extends Base
             'comment' => 'CustData',
             'minLength' => '1',
             'maxLength' => '100',
-        ), 
+        ),
     );
 }
