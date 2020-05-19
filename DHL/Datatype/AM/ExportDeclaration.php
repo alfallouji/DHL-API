@@ -113,6 +113,7 @@ class ExportDeclaration extends Base
             'required' => false,
             'subobject' => true,
             'multivalues' => true,
+            'disableParentNode' => true,
         ),
         'InvoiceNumber' => array(
             'type' => 'string',
