@@ -65,6 +65,15 @@ class ShipmentValidateRequest extends Base
      * @var array
      */
     protected $_bodyParams = array(
+        'RegionCode' => array(
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+            'comment' => 'RegionCode',
+            'minLength' => '2',
+            'maxLength' => '2',
+            'enumeration' => 'AP,EU,AM',
+        ),
         'RequestedPickupTime' => array(
             'type' => 'string',
             'required' => false,
@@ -107,6 +116,21 @@ class ShipmentValidateRequest extends Base
             'type' => 'Dutiable',
             'required' => false,
             'subobject' => true,
+        ),
+        'UseDHLInvoice' => array(
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+        ),
+        'DHLInvoiceLanguageCode' => array(
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+        ),
+        'DHLInvoiceType' => array(
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
         ),
         'ExportDeclaration' => array(
             'type' => 'ExportDeclaration',
@@ -171,21 +195,6 @@ class ShipmentValidateRequest extends Base
             'type' => 'Label',
             'required' => false,
             'subobject' => true,
-        ),
-        'UseDHLInvoice' => array(
-            'type' => 'string',
-            'required' => false,
-            'subobject' => false,
-        ),
-        'DHLInvoiceLanguageCode' => array(
-            'type' => 'string',
-            'required' => false,
-            'subobject' => false,
-        ),
-        'DHLInvoiceType' => array(
-            'type' => 'string',
-            'required' => false,
-            'subobject' => false,
         ),
     );
 }
