@@ -68,7 +68,8 @@ class Shipper extends Base
             'required' => false,
             'subobject' => false,
             'comment' => 'Address Line',
-            'maxLength' => '35',
+            'maxLength' => '45',
+            'multivalues' => true,
         ),
         'City' => array(
             'type' => 'City',
