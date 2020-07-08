@@ -462,9 +462,18 @@ abstract class Base
                 break;
 
                 case 'maxLength':
-                    if (strlen($value) > $typeValue)
-                    {
-                        throw new \InvalidArgumentException('Field ' . $key . ' has a size of ' . strlen($value) . ' and it cannot exceed this size : ' . $typeValue);
+                    if ( is_array( $value ) ) {
+                        foreach( $value as $item ) {
+                            if ( strlen( $item ) > $typeValue ) {
+                                throw new \InvalidArgumentException( 'Field ' . $key . ' has a size of ' . strlen( $item ) . ' and it cannot exceed this size : ' . $typeValue );
+                            }
+                        }
+                    }
+                    else {
+                        if (strlen($value) > $typeValue)
+                        {
+                            throw new \InvalidArgumentException('Field ' . $key . ' has a size of ' . strlen($value) . ' and it cannot exceed this size : ' . $typeValue);
+                        }
                     }
                 break;
 
