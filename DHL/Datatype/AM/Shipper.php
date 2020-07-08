@@ -64,7 +64,7 @@ class Shipper extends Base
             'minInclusive' => '100000000',
         ),
         'AddressLine' => array(
-            'type' => 'AddressLine',
+            'type' => 'string',
             'required' => false,
             'subobject' => false,
             'comment' => 'Address Line',
