@@ -41,6 +41,21 @@ class ShipmentDetails extends Base
      * @var array
      */
     protected $_params = array(
+        'AccountType' => array(
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+        ),
+        'AccountNumber' => array(
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+        ),
+        'BillToAccountNumber' => array(
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+        ),
         'NumberOfPieces' => array(
             'type' => 'positiveInteger',
             'required' => false,
