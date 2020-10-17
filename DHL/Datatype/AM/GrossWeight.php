@@ -15,7 +15,7 @@
  */
 
 /**
- * File:        Request.php
+ * File:        WeightSeg.php
  * Project:     DHL API
  *
  * @author      Al-Fallouji Bashar
@@ -26,9 +26,9 @@ namespace DHL\Datatype\AM;
 use DHL\Datatype\Base;
 
 /**
- * Request Request model for DHL API
+ * WeightSeg Request model for DHL API
  */
-class Request extends Base
+class GrossWeight extends Base
 {
     /**
      * Is this object a subobject
@@ -41,15 +41,22 @@ class Request extends Base
      * @var array
      */
     protected $_params = array(
-        'ServiceHeader' => array(
-            'type' => 'ServiceHeader',
+        'Weight' => array(
+            'type' => 'Weight',
             'required' => false,
-            'subobject' => true,
+            'subobject' => false,
+            'comment' => 'Weight of piece or shipment',
+            'fractionDigits' => '1',
+            'maxInclusive' => '999999.9',
+            'totalDigits' => '7',
         ),
-        'MetaData' => array(
-            'type' => 'MetaData',
+        'WeightUnit' => array(
+            'type' => 'WeightUnit',
             'required' => false,
-            'subobject' => true,
+            'subobject' => false,
+            'comment' => 'Unit of weight measurement (L:Pounds)',
+            'length' => '1',
+            'enumeration' => 'K,L',
         ),
     );
 }

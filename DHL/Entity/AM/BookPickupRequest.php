@@ -22,7 +22,7 @@
  * @version     0.1
  */
 
-namespace DHL\Entity\AM; 
+namespace DHL\Entity\AM;
 use DHL\Entity\Base;
 
 /**
@@ -40,13 +40,25 @@ class BookPickupRequest extends Base
      * Name of the service
      * @var string
      */
-    protected $_serviceName = 'BookPickupRequest';
+    protected $_serviceName = 'BookPURequest';
 
     /**
      * @var string
      * Service XSD
      */
-    protected $_serviceXSD = 'BookPickupRequest.xsd';
+    protected $_serviceXSD = 'pickup-global-req.xsd';
+
+    /**
+     * @var string
+     * The schema version
+     */
+    protected $_schemaVersion = '3.0';
+
+    /**
+     * Display the schema version
+     * @var boolean
+     */
+    protected $_displaySchemaVersion = true;
 
     /**
      * Parameters to be send in the body
@@ -54,39 +66,34 @@ class BookPickupRequest extends Base
      */
     protected $_bodyParams = array(
         'Requestor' => array(
-            'type' => 'string',
-            'required' => false,
-            'subobject' => false,
-        ), 
-        'Place' => array(
-            'type' => 'Place',
-            'required' => false,
+            'type' => 'Requestor',
+            'required' => true,
             'subobject' => true,
-        ), 
+        ),
+        'Place' => array(
+            'type' => 'PickupPlace',
+            'required' => true,
+            'subobject' => true,
+        ),
         'Pickup' => array(
-            'type' => 'string',
-            'required' => false,
-            'subobject' => false,
-        ), 
+            'type' => 'Pickup',
+            'required' => true,
+            'subobject' => true,
+        ),
         'PickupContact' => array(
-            'type' => 'string',
-            'required' => false,
-            'subobject' => false,
-        ), 
-        'ShipmentDetails' => array(
+            'type' => 'PickupContact',
+            'required' => true,
+            'subobject' => true,
+        ),
+        'ShipmentDetails' => array( // TODO: check datatype class parameters
             'type' => 'ShipmentDetails',
             'required' => false,
             'subobject' => true,
-        ), 
-        'PickupType' => array(
-            'type' => 'string',
+        ),
+        'ConsigneeDetails' => array( // TODO: make datatype class
+            'type' => 'ConsigneeDetails',
             'required' => false,
             'subobject' => false,
-        ), 
-        'LargestPiece' => array(
-            'type' => 'string',
-            'required' => false,
-            'subobject' => false,
-        ), 
+        ),
     );
 }

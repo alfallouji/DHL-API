@@ -22,7 +22,7 @@
  * @version     0.1
  */
 
-namespace DHL\Entity\AM; 
+namespace DHL\Entity\AM;
 use DHL\Entity\Base;
 
 /**
@@ -43,10 +43,23 @@ class GetQuote extends Base
     protected $_serviceXSD = 'DCT-req.xsd';
 
     /**
-     * Parent node name of the object 
+     * Parent node name of the object
      * @var string
      */
     protected $_xmlNodeName = 'GetQuote';
+
+    /**
+     * @var string
+     * The schema version
+     */
+    protected $_schemaVersion = '1.0';
+
+    /**
+     * Display the schema version
+     * @var boolean
+     */
+    protected $_displaySchemaVersion = true;
+
 
     /**
      * Parameters to be send in the body
@@ -59,27 +72,27 @@ class GetQuote extends Base
             'subobject' => true,
             'multivalues' => false,
             'minOccurs' => 1,
-        ), 
+        ),
         'BkgDetails' => array(
             'type' => 'BkgDetailsType',
             'required' => false,
             'subobject' => true,
             'multivalues' => false,
             'minOccurs' => 1,
-        ), 
+        ),
         'To' => array(
             'type' => 'DCTTo',
             'required' => false,
             'subobject' => true,
             'multivalues' => false,
             'minOccurs' => 1,
-        ), 
+        ),
         'Dutiable' => array(
             'type' => 'DCTDutiable',
             'required' => false,
             'subobject' => true,
             'multivalues' => false,
             'minOccurs' => 0,
-        ), 
+        ),
    );
 }

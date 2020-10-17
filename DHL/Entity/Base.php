@@ -63,11 +63,26 @@ abstract class Base extends BaseDataType
         'Password' => array(
             'type' => 'string',
             'required' => true,
+        )
+    );
+
+    /**
+     * Parameters to be used in the MetaData Header
+     * @var array
+     */
+    protected $_metaDataParams = array(
+        'SoftwareName' => array(
+            'type' => 'string',
+            'required' => true,
+        ),
+        'SoftwareVersion' => array(
+            'type' => 'string',
+            'required' => true,
         ),
     );
 
     /**
-     * Parameters to be used in the body 
+     * Parameters to be used in the body
      * @var array
      */
     protected $_bodyParams = array();
@@ -103,7 +118,7 @@ abstract class Base extends BaseDataType
     protected $_displaySchemaVersion = false;
 
     /**
-     * Parent node name of the object 
+     * Parent node name of the object
      * @var string
      */
     protected $_xmlNodeName = null;
@@ -116,10 +131,10 @@ abstract class Base extends BaseDataType
 
     /**
      * Class constructor
-     */ 
+     */
     public function __construct()
     {
-        $this->_params = array_merge($this->_headerParams, $this->_bodyParams);
+        $this->_params = array_merge($this->_headerParams, $this->_metaDataParams, $this->_bodyParams);
         $this->initializeValues();
     }
 
@@ -127,7 +142,7 @@ abstract class Base extends BaseDataType
      * Generates the XML to be sent to DHL
      *
      * @param \XMLWriter $xmlWriter XMl Writer instance
-     *   
+     *
      * @return string
      */
     public function toXML(\XMLWriter $xmlWriter = null)
@@ -138,40 +153,47 @@ abstract class Base extends BaseDataType
         $xmlWriter->openMemory();
         $xmlWriter->setIndent(true);
         $xmlWriter->startDocument('1.0', 'UTF-8');
-            
+
         $xmlWriter->startElement('req:' . $this->_serviceName);
         $xmlWriter->writeAttribute('xmlns:req', self::DHL_REQ);
         $xmlWriter->writeAttribute('xmlns:xsi', self::DHL_XSI);
         $xmlWriter->writeAttribute('xsi:schemaLocation', self::DHL_REQ . ' ' .$this->_serviceXSD);
-    
-        if ($this->_displaySchemaVersion) 
+
+        if ($this->_displaySchemaVersion)
         {
             $xmlWriter->writeAttribute('schemaVersion', $this->_schemaVersion);
         }
 
-        if (null !== $this->_xmlNodeName) 
+        if (null !== $this->_xmlNodeName)
         {
             $xmlWriter->startElement($this->_xmlNodeName);
         }
 
         $xmlWriter->startElement('Request');
         $xmlWriter->startElement('ServiceHeader');
-        foreach ($this->_headerParams as $name => $infos) 
+        foreach ($this->_headerParams as $name => $infos)
         {
             $xmlWriter->writeElement($name, $this->$name);
         }
-        $xmlWriter->endElement(); // End of Request
         $xmlWriter->endElement(); // End of ServiceHeader
 
-        foreach ($this->_bodyParams as $name => $infos) 
+        $xmlWriter->startElement('MetaData');
+        foreach ($this->_metaDataParams as $name => $infos)
+        {
+            $xmlWriter->writeElement($name, $this->$name);
+        }
+        $xmlWriter->endElement(); // End of MetaData
+        $xmlWriter->endElement(); // End of Request
+
+        foreach ($this->_bodyParams as $name => $infos)
         {
             if ($this->$name)
             {
-                if (is_object($this->$name)) 
+                if (is_object($this->$name))
                 {
                     $this->$name->toXML($xmlWriter);
                 }
-                elseif (is_array($this->$name)) 
+                elseif (is_array($this->$name))
                 {
                     if ('string' == $this->_params[$name]['type'])
                     {
@@ -182,18 +204,18 @@ abstract class Base extends BaseDataType
                     }
                     else
                     {
-                        if (!isset($this->_params[$name]['disableParentNode']) || false == $this->_params[$name]['disableParentNode']) 
-                        {              
+                        if (!isset($this->_params[$name]['disableParentNode']) || false == $this->_params[$name]['disableParentNode'])
+                        {
                             $xmlWriter->startElement($name);
                         }
 
-                        foreach ($this->$name as $subelement) 
+                        foreach ($this->$name as $subelement)
                         {
                             $subelement->toXML($xmlWriter);
                         }
 
-                        if (!isset($this->_params[$name]['disableParentNode']) || false == $this->_params[$name]['disableParentNode']) 
-                        {              
+                        if (!isset($this->_params[$name]['disableParentNode']) || false == $this->_params[$name]['disableParentNode'])
+                        {
                             $xmlWriter->endElement();
                         }
                     }
@@ -208,25 +230,25 @@ abstract class Base extends BaseDataType
         $xmlWriter->endElement(); // End of parent node
 
         // End of class name tag
-        if (null !== $this->_xmlNodeName) 
+        if (null !== $this->_xmlNodeName)
         {
             $xmlWriter->endElement();
         }
 
         $xmlWriter->endDocument();
-    
+
         return $xmlWriter->outputMemory(true);
     }
 
     /**
      * Initialize object from an XML string
-     * 
+     *
      * @param string $xml XML String
-     * 
+     *
      * @return void
      * @throws \Exception Exception thrown if response returned has an error
      */
-    public function initFromXML($xml) 
+    public function initFromXML($xml)
     {
         $xml = simplexml_load_string(str_replace('req:', '', $xml));
 
@@ -238,8 +260,8 @@ abstract class Base extends BaseDataType
 
         $parts = explode('\\', get_class($this));
         $className = array_pop($parts);
-        foreach ($xml->children() as $child) 
-        {           
+        foreach ($xml->children() as $child)
+        {
             $childName = $child->getName();
             switch ($childName)
             {
@@ -257,7 +279,7 @@ abstract class Base extends BaseDataType
                     }
                     elseif (isset($this->_params[$childName]['multivalues']) && $this->_params[$childName]['multivalues'])
                     {
-                        foreach ($child->children() as $subchild) 
+                        foreach ($child->children() as $subchild)
                         {
                             $subchildName = $subchild->getName();
                             if ($subchild->count() > 1)
@@ -277,7 +299,7 @@ abstract class Base extends BaseDataType
                                 $childObj = new $childClassname();
                                 $childObj->initFromXml($subchild->asXML());
                             }
-                            
+
                             $addMethodName = 'add' . ucfirst($subchildName);
                             $this->$addMethodName($childObj);
                         }
@@ -297,11 +319,11 @@ abstract class Base extends BaseDataType
      */
     protected function initializeValues()
     {
-        foreach ($this->_params as $name => $infos) 
+        foreach ($this->_params as $name => $infos)
         {
             if (!$this->_isSubobject && isset($infos['subobject']) && $infos['subobject'])
             {
-                if (isset($infos['multivalues']) && $infos['multivalues']) 
+                if (isset($infos['multivalues']) && $infos['multivalues'])
                 {
                     $this->_values[$name] = array();
                 }
@@ -324,29 +346,29 @@ abstract class Base extends BaseDataType
 
     /**
      * Validate all parameters
-     * 
+     *
      * @return boolean True upon success
      * @throws \InvalidArgumentException Throws exception if type not valid or if value are missing
      */
     protected function validateParameters()
     {
-        foreach ($this->_params as $name => $infos) 
+        foreach ($this->_params as $name => $infos)
         {
             if (isset($infos['required']) && true === $infos['required'] && $this->_values[$name] === null)
             {
                 throw new \InvalidArgumentException('Field ' . $name . ' has no value');
             }
 
-            if ($this->_values[$name]) 
+            if ($this->_values[$name])
             {
-                if (is_array($this->_values[$name])) 
+                if (is_array($this->_values[$name]))
                 {
                     foreach ($this->_values[$name] as $subelement)
                     {
                         $subelement->validateParameters();
                     }
                 }
-                else 
+                else
                 {
                     $this->validateParameterType($name, $this->_values[$name]);
                     $this->validateParameterValue($name, $this->_values[$name]);
