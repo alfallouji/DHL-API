@@ -2,8 +2,8 @@
 
 namespace Mtc\Dhl;
 
-use Mtc\Dhl\Entity\GB\ShipmentRequest;
-use Mtc\Dhl\Entity\GB\ShipmentResponse;
+use Mtc\Dhl\Entity\EU\ShipmentRequest;
+use Mtc\Dhl\Entity\EU\ShipmentResponse;
 use Mtc\Dhl\Client\Web as WebserviceClient;
 
 /**

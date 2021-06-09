@@ -287,7 +287,7 @@ abstract class Base extends BaseDataType
                     $class_name = implode('\\', $parts) . '\\' . $infos['type'];
                     $class_name = str_replace('Entity', 'Datatype', $class_name);
                     if (!class_exists($class_name)) {
-                        $class_name = str_replace(['\\GB\\', '\\AP\\', '\\EA\\'], '\\AM\\', $class_name);
+                        $class_name = str_replace(['\\EU\\', '\\AP\\', '\\EA\\'], '\\AM\\', $class_name);
                     }
                     $this->values[$name] = new $class_name();
                 }
