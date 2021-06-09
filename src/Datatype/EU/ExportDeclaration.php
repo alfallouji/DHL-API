@@ -101,19 +101,19 @@ class ExportDeclaration extends \Mtc\Dhl\Datatype\AM\ExportDeclaration
             'disableParentNode' => true,
         ],
         'InvoiceTotalGrossWeight' => [
-            'type' => 'InvoiceTotalGrossWeight',
+            'type' => 'string',
             'required' => false,
-            'subobject' => true,
+            'subobject' => false,
         ],
         'InvoiceNumber' => [
-            'type' => 'InvoiceNumber',
+            'type' => 'string',
             'required' => false,
-            'subobject' => true,
+            'subobject' => false,
         ],
         'InvoiceDate' => [
-            'type' => 'InvoiceDate',
+            'type' => 'dateTime',
             'required' => false,
-            'subobject' => true,
+            'subobject' => false,
         ],
     ];
 }
