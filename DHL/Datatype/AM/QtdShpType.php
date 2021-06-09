@@ -61,6 +61,8 @@ class QtdShpType extends Base
             'type' => 'QtdShpExChrgType',
             'required' => false,
             'subobject' => true,
+            'multivalues' => true,
+            'disableParentNode' => true,
         ), 
     );
 }
