@@ -260,7 +260,7 @@ class ExportDeclaration extends Base
             'subobject' => false,
         ),
         'RUBankKPP' => array(
-+            'type' => 'RUBankKPP',
+            'type' => 'RUBankKPP',
             'required' => false,
             'subobject' => false,
         ),
