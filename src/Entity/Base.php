@@ -102,8 +102,8 @@ abstract class Base extends BaseDataType
     /**
      * Class constants
      */
-    const DHL_REQ = 'http://www.dhl.com';
-    const DHL_XSI = 'http://www.w3.org/2001/XMLSchema-instance';
+    public const DHL_REQ = 'http://www.dhl.com';
+    public const DHL_XSI = 'http://www.w3.org/2001/XMLSchema-instance';
 
     /**
      * Class constructor
@@ -169,7 +169,10 @@ abstract class Base extends BaseDataType
                             $xml_writer->writeElement($name, $sub_element);
                         }
                     } else {
-                        if (!isset($this->params[$name]['disableParentNode']) || false == $this->params[$name]['disableParentNode']) {
+                        if (
+                            !isset($this->params[$name]['disableParentNode'])
+                            || false == $this->params[$name]['disableParentNode']
+                        ) {
                             $xml_writer->startElement($name);
                         }
 
@@ -177,7 +180,10 @@ abstract class Base extends BaseDataType
                             $sub_element->toXML($xml_writer);
                         }
 
-                        if (!isset($this->params[$name]['disableParentNode']) || false == $this->params[$name]['disableParentNode']) {
+                        if (
+                            !isset($this->params[$name]['disableParentNode'])
+                            || false == $this->params[$name]['disableParentNode']
+                        ) {
                             $xml_writer->endElement();
                         }
                     }
@@ -212,7 +218,8 @@ abstract class Base extends BaseDataType
         $xml = simplexml_load_string(str_replace('req:', '', $xml));
 
         if ((string)$xml->Response->Status->Condition->ConditionCode != '') {
-            $errorMsg = ((string)$xml->Response->Status->Condition->ConditionCode) . ' : ' . ((string)$xml->Response->Status->Condition->ConditionData);
+            $errorMsg = ((string)$xml->Response->Status->Condition->ConditionCode) . ' : '
+                . ((string)$xml->Response->Status->Condition->ConditionData);
             throw new \Exception('Error returned from DHL webservice : ' . $errorMsg);
         }
 
@@ -231,7 +238,10 @@ abstract class Base extends BaseDataType
                 default:
                     if (is_object($this->$child_name)) {
                         $this->$child_name->initFromXml($child->asXML());
-                    } elseif (isset($this->params[$child_name]['multivalues']) && $this->params[$child_name]['multivalues']) {
+                    } elseif (
+                        isset($this->params[$child_name]['multivalues'])
+                        && $this->params[$child_name]['multivalues']
+                    ) {
                         foreach ($child->children() as $sub_child) {
                             $sub_child_name = $sub_child->getName();
                             if ($sub_child->count() > 1) {
@@ -313,7 +323,10 @@ abstract class Base extends BaseDataType
         }
 
         if (null === $this->service_name) {
-            throw new InvalidArgumentException('Class ' . get_class($this) . ' must have a valid serviceName property defined');
+            throw new InvalidArgumentException(
+                'Class ' . get_class($this)
+                . ' must have a valid serviceName property defined'
+            );
         }
 
         return true;

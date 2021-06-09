@@ -23,7 +23,7 @@ class WeightSeg extends \Mtc\Dhl\Datatype\AM\WeightSeg
             'minInclusive' => '0.000',
             'maxInclusive' => '999999.999',
             'totalDigits' => '10',
-        ], 
+        ],
         'WeightUnit' => [
             'type' => 'WeightUnit',
             'required' => false,
@@ -32,6 +32,6 @@ class WeightSeg extends \Mtc\Dhl\Datatype\AM\WeightSeg
             'minLength' => '0',
             'maxLength' => '1',
             'enumeration' => 'K,L',
-        ], 
+        ],
     ];
 }

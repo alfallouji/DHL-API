@@ -27,7 +27,7 @@ class Service
 
     /**
      * Service constructor.
-     * 
+     *
      * @param WebserviceClient $client
      */
     public function __construct(WebserviceClient $client)

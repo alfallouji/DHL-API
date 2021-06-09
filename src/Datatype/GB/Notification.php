@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Note : Code is released under the GNU LGPL
  *
@@ -34,7 +35,7 @@ class Notification extends Base
      * Is this object a subobject
      * @var boolean
      */
-    protected $_isSubobject = true;
+    protected $isSubobject = true;
 
     /**
      * Parameters of the datatype
@@ -47,13 +48,13 @@ class Notification extends Base
             'subobject' => false,
             'comment' => 'Message',
             'maxLength' => '250',
-        ], 
+        ],
         'Message' => [
             'type' => 'Message',
             'required' => false,
             'subobject' => false,
             'comment' => 'Message',
             'maxLength' => '250',
-        ], 
+        ],
     ];
 }

@@ -22,16 +22,16 @@ class PieceFault extends \Mtc\Dhl\Datatype\AM\PieceFault
             'comment' => 'Piece ID',
             'minLength' => '20',
             'maxLength' => '35',
-        ], 
+        ],
         'ConditionCode' => [
             'type' => 'string',
             'required' => true,
             'subobject' => false,
-        ], 
+        ],
         'ConditionData' => [
             'type' => 'string',
             'required' => true,
             'subobject' => false,
-        ], 
+        ],
     ];
 }

@@ -13,7 +13,7 @@ class Pieces extends Base
      * Is this object a subobject
      * @var boolean
      */
-    protected $_isSubobject = true;
+    protected $isSubobject = true;
 
     /**
      * Parameters of the datatype

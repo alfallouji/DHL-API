@@ -21,7 +21,7 @@ class Piece extends \Mtc\Dhl\Datatype\AM\Piece
             'subobject' => false,
             'comment' => 'Piece ID',
             'maxLength' => '35',
-        ], 
+        ],
         'PackageType' => [
             'type' => 'PackageType',
             'required' => false,
@@ -31,7 +31,7 @@ class Piece extends \Mtc\Dhl\Datatype\AM\Piece
 				Box, DF-DHL Flyer, YP-Your packaging)',
             'length' => '2',
             'enumeration' => 'BD,BP,CP,DC,DF,DM,ED,EE,FR,JB,JD,JJ,JP,OD,PA,YP',
-        ], 
+        ],
         'Weight' => [
             'type' => 'Weight',
             'required' => false,
@@ -41,7 +41,7 @@ class Piece extends \Mtc\Dhl\Datatype\AM\Piece
             'minInclusive' => '0.000',
             'maxInclusive' => '999999.999',
             'totalDigits' => '10',
-        ], 
+        ],
         'DimWeight' => [
             'type' => 'Weight',
             'required' => false,
@@ -51,28 +51,28 @@ class Piece extends \Mtc\Dhl\Datatype\AM\Piece
             'minInclusive' => '0.000',
             'maxInclusive' => '999999.999',
             'totalDigits' => '10',
-        ], 
+        ],
         'Width' => [
             'type' => 'positiveInteger',
             'required' => false,
             'subobject' => false,
-        ], 
+        ],
         'Height' => [
             'type' => 'positiveInteger',
             'required' => false,
             'subobject' => false,
-        ], 
+        ],
         'Depth' => [
             'type' => 'positiveInteger',
             'required' => false,
             'subobject' => false,
-        ], 
+        ],
         'PieceContents' => [
             'type' => 'PieceContents',
             'required' => false,
             'subobject' => false,
             'comment' => 'Piece contents description',
             'maxLength' => '35',
-        ], 
+        ],
     ];
 }

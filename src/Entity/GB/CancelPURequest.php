@@ -34,7 +34,7 @@ class CancelPURequest extends Base
      * @var boolean
      */
     protected $display_schema_version = true;
-    
+
     /**
      * Parameters to be send in the body
      * @var array

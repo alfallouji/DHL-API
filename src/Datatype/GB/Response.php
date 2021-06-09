@@ -18,6 +18,6 @@ class Response extends \Mtc\Dhl\Datatype\AM\Response
             'type' => 'ResponseServiceHeader',
             'required' => false,
             'subobject' => true,
-        ], 
+        ],
     ];
 }

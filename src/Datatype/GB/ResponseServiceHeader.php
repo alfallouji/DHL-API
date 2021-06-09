@@ -1,6 +1,7 @@
 <?php
 
 namespace Mtc\Dhl\Datatype\GB;
+
 use Mtc\Dhl\Datatype\Base;
 
 /**
@@ -14,7 +15,7 @@ class ResponseServiceHeader extends Base
      * Is this object a subobject
      * @var boolean
      */
-    protected $_isSubobject = true;
+    protected $isSubobject = true;
 
     /**
      * Parameters of the datatype
@@ -25,7 +26,7 @@ class ResponseServiceHeader extends Base
             'type' => 'dateTime',
             'required' => false,
             'subobject' => false,
-        ], 
+        ],
         'MessageReference' => [
             'type' => 'MessageReference',
             'required' => false,
@@ -33,7 +34,7 @@ class ResponseServiceHeader extends Base
             'comment' => 'Reference to the requested Message',
             'minLength' => '28',
             'maxLength' => '32',
-        ], 
+        ],
         'SiteID' => [
             'type' => 'SiteID',
             'required' => false,
@@ -41,6 +42,6 @@ class ResponseServiceHeader extends Base
             'comment' => 'Site ID used for verifying the sender',
             'minLength' => '6',
             'maxLength' => '20',
-        ], 
+        ],
     ];
 }

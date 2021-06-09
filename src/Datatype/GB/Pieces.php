@@ -19,6 +19,6 @@ class Pieces extends \Mtc\Dhl\Datatype\AM\Pieces
             'required' => false,
             'subobject' => true,
             'multivalues' => true,
-        ], 
+        ],
     ];
 }

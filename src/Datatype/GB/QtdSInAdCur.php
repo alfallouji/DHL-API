@@ -21,7 +21,7 @@ class QtdSInAdCur extends \Mtc\Dhl\Datatype\AM\QtdSInAdCur
             'subobject' => false,
             'comment' => 'ISO currency code',
             'length' => '3',
-        ], 
+        ],
         'CurrencyRoleTypeCode' => [
             'type' => 'CurrencyRoleTypeCode',
             'required' => true,
@@ -29,7 +29,7 @@ class QtdSInAdCur extends \Mtc\Dhl\Datatype\AM\QtdSInAdCur
             'comment' => 'CurrencyRoleTypeCode',
             'maxLength' => '6',
             'enumeration' => 'BILLC,BILLCU,PULCL,INVCU,BASEC',
-        ], 
+        ],
         'PackageCharge' => [
             'type' => 'PackageCharge',
             'required' => true,
@@ -37,7 +37,7 @@ class QtdSInAdCur extends \Mtc\Dhl\Datatype\AM\QtdSInAdCur
             'comment' => 'PackageCharge',
             'fractionDigits' => '3',
             'totalDigits' => '18',
-        ], 
+        ],
         'ShippingCharge' => [
             'type' => 'ShippingCharge',
             'required' => true,
@@ -45,6 +45,6 @@ class QtdSInAdCur extends \Mtc\Dhl\Datatype\AM\QtdSInAdCur
             'comment' => 'ShippingCharge',
             'fractionDigits' => '3',
             'totalDigits' => '18',
-        ], 
+        ],
     ];
 }

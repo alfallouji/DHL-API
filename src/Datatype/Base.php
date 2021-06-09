@@ -90,7 +90,10 @@ abstract class Base
                             $xmlWriter->writeElement($name, $sub_element);
                         }
                     } else {
-                        if (!isset($this->params[$name]['disableParentNode']) || false == $this->params[$name]['disableParentNode']) {
+                        if (
+                            !isset($this->params[$name]['disableParentNode'])
+                            || false == $this->params[$name]['disableParentNode']
+                        ) {
                             $xmlWriter->startElement($name);
                         }
 
@@ -98,7 +101,10 @@ abstract class Base
                             $sub_element->toXML($xmlWriter);
                         }
 
-                        if (!isset($this->params[$name]['disableParentNode']) || false == $this->params[$name]['disableParentNode']) {
+                        if (
+                            !isset($this->params[$name]['disableParentNode'])
+                            || false == $this->params[$name]['disableParentNode']
+                        ) {
                             $xmlWriter->endElement();
                         }
                     }
@@ -163,10 +169,12 @@ abstract class Base
     {
         $key = str_replace('add', '', $name);
 
-        if (isset($this->params[$key . 's'])
+        if (
+            isset($this->params[$key . 's'])
             && $this->params[$key . 's']['type'] !== 'string'
             && isset($this->params[$key . 's']['multivalues'])
-            && true === $this->params[$key . 's']['multivalues']) {
+            && true === $this->params[$key . 's']['multivalues']
+        ) {
             $key .= 's';
         }
 
@@ -184,7 +192,8 @@ abstract class Base
         if (isset($this->params[$key]['multivalues']) && $this->params[$key]['multivalues']) {
             $this->values[$key][] = $arguments[0];
         } else {
-            throw new \InvalidArgumentException('This is not a multivalues field : ' . $key . ' called via method ' . $name);
+            $message = 'This is not a multivalues field : ' . $key . ' called via method ' . $name;
+            throw new \InvalidArgumentException($message);
         }
     }
 
@@ -193,7 +202,7 @@ abstract class Base
      *
      * @param string $key Key to check
      *
-     * @return bolean True if it exsits, false otherwise
+     * @return bool True if it exsits, false otherwise
      */
     final public function __isset($key)
     {
@@ -300,7 +309,11 @@ abstract class Base
 
         switch ($this->params[$key]['type']) {
             case 'string':
-                if (is_array($value) && isset($this->params[$key]['multivalues']) && true === $this->params[$key]['multivalues']) {
+                if (
+                    is_array($value)
+                    && isset($this->params[$key]['multivalues'])
+                    && true === $this->params[$key]['multivalues']
+                ) {
                     foreach ($value as $subvalue) {
                         if (null !== $subvalue && $subvalue !== (string)$subvalue) {
                             throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : '
@@ -337,7 +350,8 @@ abstract class Base
                     $currentClass = get_class($value);
                     $parts = explode('\\', $currentClass);
                     array_pop($parts);
-                    $className = str_replace('Entity', 'DataType', implode('\\', $parts) . '\\' . $this->params[$key]['type']);
+                    $className = implode('\\', $parts) . '\\' . $this->params[$key]['type'];
+                    $className = str_replace('Entity', 'DataType', $className);
                     if (!$value instanceof $className) {
                         throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : '
                             . $this->params[$key]['type'] . ' but it has a value of : "' . print_r($value, true) . '"');
@@ -365,25 +379,33 @@ abstract class Base
                 case 'enumeration':
                     $acceptedValues = explode(',', $typeValue);
                     if (!in_array($value, $acceptedValues)) {
-                        throw new \InvalidArgumentException('Field ' . $key . ' cannot be set to value : ' . $value . '. Accepted values are : ' . $typeValue);
+                        $message = 'Field ' . $key . ' cannot be set to value : ' . $value
+                            . '. Accepted values are : ' . $typeValue;
+                        throw new \InvalidArgumentException($message);
                     }
                     break;
 
                 case 'length':
                     if (strlen($value) != $typeValue) {
-                        throw new \InvalidArgumentException('Field ' . $key . ' has a size of ' . strlen($value) . ' and it should be that size : ' . $typeValue);
+                        $message = 'Field ' . $key . ' has a size of ' . strlen($value)
+                            . ' and it should be that size : ' . $typeValue;
+                        throw new \InvalidArgumentException($message);
                     }
                     break;
 
                 case 'maxLength':
                     if (strlen($value) > $typeValue) {
-                        throw new \InvalidArgumentException('Field ' . $key . ' has a size of ' . strlen($value) . ' and it cannot exceed this size : ' . $typeValue);
+                        $message = 'Field ' . $key . ' has a size of ' . strlen($value)
+                            . ' and it cannot exceed this size : ' . $typeValue;
+                        throw new \InvalidArgumentException($message);
                     }
                     break;
 
                 case 'minLength':
                     if (strlen($value) < $typeValue) {
-                        throw new \InvalidArgumentException('Field ' . $key . ' has a size of ' . strlen($value) . ' and it cannot be less than this size : ' . $typeValue);
+                        $message = 'Field ' . $key . ' has a size of ' . strlen($value)
+                            . ' and it cannot be less than this size : ' . $typeValue;
+                        throw new \InvalidArgumentException($message);
                     }
                     break;
 
@@ -403,7 +425,9 @@ abstract class Base
                     $matches = [];
                     $typeValue = "/" . $typeValue . "/";
                     if (1 !== preg_match($typeValue, $value, $matches) || (strlen($value) > 0 && !$matches[0])) {
-                        throw new \InvalidArgumentException('Field ' . $key . ' should match regex pattern : ' . $typeValue . ' and it has a value of ' . $value);
+                        $message = 'Field ' . $key . ' should match regex pattern : ' . $typeValue
+                            . ' and it has a value of ' . $value;
+                        throw new \InvalidArgumentException($message);
                     }
                     break;
             }

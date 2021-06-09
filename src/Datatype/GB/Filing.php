@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Note : Code is released under the GNU LGPL
  *
@@ -34,7 +35,7 @@ class Filing extends Base
      * Is this object a subobject
      * @var boolean
      */
-    protected $_isSubobject = true;
+    protected $isSubobject = true;
 
     /**
      * Parameters of the datatype
@@ -49,7 +50,7 @@ class Filing extends Base
             'minLength' => '3',
             'maxLength' => '4',
             'enumeration' => 'FTR,ITN,AES4',
-        ], 
+        ],
         'FTSR' => [
             'type' => 'FTSR',
             'required' => false,
@@ -57,8 +58,9 @@ class Filing extends Base
             'comment' => 'FTSR',
             'minLength' => '5',
             'maxLength' => '10',
-            'enumeration' => '30.2(d)(2),30.36,30.37(a),30.37(b),30.37(e),30.37(f),30.37(g),30.37(h),30.37(j),30.37(k),30.39,30.40(a),30.40(b),30.40(c),30.40(d)',
-        ], 
+            'enumeration' => '30.2(d)(2),30.36,30.37(a),30.37(b),30.37(e),30.37(f),30.37(g),30.37(h),30.37(j),30.37(k),'
+                . '30.39,30.40(a),30.40(b),30.40(c),30.40(d)',
+        ],
         'ITN' => [
             'type' => 'ITN',
             'required' => false,
@@ -66,7 +68,7 @@ class Filing extends Base
             'comment' => 'ITN',
             'length' => '15',
             'pattern' => 'X[0-9]{14}',
-        ], 
+        ],
         'AES4EIN' => [
             'type' => 'AES4EIN',
             'required' => false,
@@ -74,6 +76,6 @@ class Filing extends Base
             'comment' => 'AES4',
             'minLength' => '1',
             'maxLength' => '11',
-        ], 
+        ],
     ];
 }

@@ -20,7 +20,7 @@ class SpecialService extends \Mtc\Dhl\Datatype\AM\SpecialService
             'subobject' => false,
             'comment' => 'Special Service codes',
             'maxLength' => '3',
-        ], 
+        ],
         'CommunicationAddress' => [
             'type' => 'CommunicationAddress',
             'required' => false,
@@ -28,7 +28,7 @@ class SpecialService extends \Mtc\Dhl\Datatype\AM\SpecialService
             'comment' => 'Communications line number: phone number, fax
 				number',
             'maxLength' => '50',
-        ], 
+        ],
         'CommunicationType' => [
             'type' => 'CommunicationType',
             'required' => false,
@@ -36,14 +36,14 @@ class SpecialService extends \Mtc\Dhl\Datatype\AM\SpecialService
             'comment' => 'Communications line type (P: phone, F: fax)',
             'length' => '1',
             'enumeration' => 'P,F',
-        ], 
+        ],
         'SpecialServiceDesc' => [
             'type' => 'SpecialServiceDesc',
             'required' => false,
             'subobject' => false,
             'comment' => 'Special Service Description',
             'maxLength' => '45',
-        ], 
+        ],
         'ChargeValue' => [
             'type' => 'Money',
             'required' => false,
@@ -51,14 +51,14 @@ class SpecialService extends \Mtc\Dhl\Datatype\AM\SpecialService
             'comment' => 'Monetary amount (with 2 decimal precision)',
             'minInclusive' => '0.00',
             'maxInclusive' => '9999999999.99',
-        ], 
+        ],
         'CurrencyCode' => [
             'type' => 'CurrencyCode',
             'required' => false,
             'subobject' => false,
             'comment' => 'ISO currency code',
             'length' => '3',
-        ], 
+        ],
         'IsWaived' => [
             'type' => 'YesNo',
             'required' => false,
@@ -66,6 +66,6 @@ class SpecialService extends \Mtc\Dhl\Datatype\AM\SpecialService
             'comment' => 'Boolean flag',
             'length' => '1',
             'enumeration' => 'Y,N',
-        ], 
+        ],
     ];
 }

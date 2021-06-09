@@ -13,19 +13,19 @@ class Web
      * Url to services
      * @var string
      */
-    private $_stagingUrl = 'https://xmlpitest-ea.dhl.com/XMLShippingServlet?isUTF8Support=true';
+    private $stagingUrl = 'https://xmlpitest-ea.dhl.com/XMLShippingServlet?isUTF8Support=true';
 
     /**
      * Url to services
      * @var string
      */
-    private $_productionUrl = 'https://xmlpi-ea.dhl.com/XMLShippingServlet?isUTF8Support=true';
+    private $productionUrl = 'https://xmlpi-ea.dhl.com/XMLShippingServlet?isUTF8Support=true';
 
     /**
      * Use production server or staging
      * @var string
      */
-    protected $_mode = 'staging';
+    protected $mode = 'staging';
 
     /**
      * Class constructor
@@ -35,9 +35,10 @@ class Web
     public function __construct($mode = 'staging')
     {
         if (!in_array($mode, array('staging', 'production'))) {
-            throw new \InvalidArgumentException('Invalid mode : ' . $mode . '. Accepted values are : staging or production.');
+            $message = 'Invalid mode : ' . $mode . '. Accepted values are : staging or production.';
+            throw new \InvalidArgumentException($message);
         }
-        $this->_mode = $mode;
+        $this->mode = $mode;
     }
 
     /**
@@ -54,7 +55,7 @@ class Web
         }
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $this->_getUrl());
+        curl_setopt($ch, CURLOPT_URL, $this->getUrl());
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_PORT, 443);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $request->toXML());
@@ -62,9 +63,8 @@ class Web
 
         if (curl_error($ch)) {
             return false;
-        } else {
-            curl_close($ch);
         }
+        curl_close($ch);
 
         return $result;
     }
@@ -74,8 +74,8 @@ class Web
      *
      * @return string URL for the service
      */
-    private function _getUrl()
+    private function getUrl()
     {
-        return ('staging' == $this->_mode) ? $this->_stagingUrl : $this->_productionUrl;
+        return ('staging' === $this->mode) ? $this->stagingUrl : $this->productionUrl;
     }
 }

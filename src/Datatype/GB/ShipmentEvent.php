@@ -19,26 +19,26 @@ class ShipmentEvent extends \Mtc\Dhl\Datatype\AM\ShipmentEvent
             'type' => 'date',
             'required' => false,
             'subobject' => false,
-        ], 
+        ],
         'Time' => [
             'type' => 'time',
             'required' => false,
             'subobject' => false,
-        ], 
+        ],
         'ServiceEvent' => [
             'type' => 'ServiceEvent',
             'required' => false,
             'subobject' => true,
-        ], 
+        ],
         'Signatory' => [
             'type' => '',
             'required' => false,
             'subobject' => false,
-        ], 
+        ],
         'ServiceArea' => [
             'type' => 'ServiceArea',
             'required' => false,
             'subobject' => true,
-        ], 
+        ],
     ];
 }

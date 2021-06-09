@@ -2,7 +2,12 @@
     "name": "mtcmedia/dhl-api",
     "description": "PHP library to communicate with the DHL XML Services.",
     "require": {
-        "php": ">=7.0"
+        "php": ">=7.1",
+        "ext-xmlwriter": "*",
+        "ext-curl": "*"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.5"
     },
     "license": "MIT",
     "autoload": {

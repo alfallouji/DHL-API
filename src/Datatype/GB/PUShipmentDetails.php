@@ -15,7 +15,7 @@ class PUShipmentDetails extends Base
      * Is this object a subobject
      * @var boolean
      */
-    protected $_isSubobject = true;
+    protected $isSubobject = true;
 
     /**
      * Parent node name of the object

@@ -13,7 +13,7 @@ class PieceDetails extends Base
      * Is this object a subobject
      * @var boolean
      */
-    protected $_isSubobject = true;
+    protected $isSubobject = true;
 
     /**
      * Parameters of the datatype
@@ -82,7 +82,10 @@ class PieceDetails extends Base
             'type' => 'PackageType',
             'required' => false,
             'subobject' => false,
-            'comment' => 'Package Type (EE: DHL Express Envelope, OD:Other DHL Packaging, CP:Customer-provided.Ground shipments must choose CP)',
+            'comment' => 'Package Type (
+                EE: DHL Express Envelope, 
+                OD:Other DHL Packaging, 
+                CP:Customer-provided.Ground shipments must choose CP)',
             'length' => '2',
             'enumeration' => 'EE,OD,CP',
         ],

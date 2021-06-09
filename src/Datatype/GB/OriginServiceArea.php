@@ -13,7 +13,7 @@ class OriginServiceArea extends \Mtc\Dhl\Datatype\AM\OriginServiceArea
      * Is this object a subobject
      * @var boolean
      */
-    protected $_isSubobject = true;
+    protected $isSubobject = true;
 
     /**
      * Parameters of the datatype
@@ -26,18 +26,18 @@ class OriginServiceArea extends \Mtc\Dhl\Datatype\AM\OriginServiceArea
             'subobject' => false,
             'comment' => 'DHL service area code',
             'length' => '3',
-        ], 
+        ],
         'Description' => [
             'type' => 'string',
             'required' => false,
             'subobject' => false,
-        ], 
+        ],
         'OutboundSortCode' => [
             'type' => 'OutboundSortCode',
             'required' => false,
             'subobject' => false,
             'comment' => 'OutBound Sort Code',
             'maxLength' => '4',
-        ], 
+        ],
     ];
 }

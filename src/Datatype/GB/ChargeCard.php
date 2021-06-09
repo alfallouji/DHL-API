@@ -1,6 +1,7 @@
 <?php
 
 namespace Mtc\Dhl\Datatype\GB;
+
 /**
  * Class ChargeCard
  *

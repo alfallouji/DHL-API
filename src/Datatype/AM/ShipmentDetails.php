@@ -15,7 +15,7 @@ class ShipmentDetails extends Base
      * Is this object a subobject
      * @var boolean
      */
-    protected $_isSubobject = true;
+    protected $isSubobject = true;
 
     /**
      * Parameters of the datatype
@@ -56,7 +56,7 @@ class ShipmentDetails extends Base
             'subobject' => false,
             'comment' => 'DHL product code 
 			D : US Overnight  (>0.5 lb) and Worldwide Express Non-dutiable  (>0.5 lb) 
-			X : USA Express Envelope   (less than or  = 0.5 lb) and Worldwide Express-International Express Envelope  (less than or = 0.5 lb) 
+			X : USA Express Envelope   (<= 0.5 lb) and Worldwide Express-International Express Envelope  (<= 0.5 lb) 
 			W : Worldwide Express-Dutiable
 			Y : DHL Second Day Express . Must be Express Envelop with weight lessthan or = 0.5 lb
 			G : DHL Second Day . Weight > 0.5 lb or not an express envelop
@@ -71,7 +71,7 @@ class ShipmentDetails extends Base
             'subobject' => false,
             'comment' => 'DHL product code 
 			D : US Overnight  (>0.5 lb) and Worldwide Express Non-dutiable  (>0.5 lb) 
-			X : USA Express Envelope   (less than or  = 0.5 lb) and Worldwide Express-International Express Envelope  (less than or = 0.5 lb) 
+			X : USA Express Envelope   (<= 0.5 lb) and Worldwide Express-International Express Envelope  (<= 0.5 lb) 
 			W : Worldwide Express-Dutiable
 			Y : DHL Second Day Express . Must be Express Envelop with weight lessthan or = 0.5 lb
 			G : DHL Second Day . Weight > 0.5 lb or not an express envelop
@@ -129,7 +129,10 @@ class ShipmentDetails extends Base
             'type' => 'PackageType',
             'required' => false,
             'subobject' => false,
-            'comment' => 'Package Type (EE: DHL Express Envelope, OD:Other DHL Packaging, CP:Customer-provided.Ground shipments must choose CP)',
+            'comment' => 'Package Type (
+                EE: DHL Express Envelope, 
+                OD:Other DHL Packaging, 
+                CP:Customer-provided.Ground shipments must choose CP)',
             'length' => '2',
             'enumeration' => 'EE,OD,CP',
         ],

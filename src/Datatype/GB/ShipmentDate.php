@@ -20,13 +20,13 @@ class ShipmentDate extends \Mtc\Dhl\Datatype\AM\ShipmentDate
             'subobject' => false,
             'comment' => 'Date only',
             'pattern' => '[0-9][0-9][0-9][0-9](-)[0-9][0-9](-)[0-9][0-9]',
-        ], 
+        ],
         'ShipmentDateTo' => [
             'type' => 'Date',
             'required' => false,
             'subobject' => false,
             'comment' => 'Date only',
             'pattern' => '[0-9][0-9][0-9][0-9](-)[0-9][0-9](-)[0-9][0-9]',
-        ], 
+        ],
     ];
 }
