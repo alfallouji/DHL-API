@@ -345,6 +345,15 @@ abstract class Base
                 }
                 break;
 
+            case 'decimal':
+            case 'float':
+            case 'double':
+                if (false === filter_var((int)$value, FILTER_VALIDATE_FLOAT) && ((double)$value != $value)) {
+                    throw new \InvalidArgumentException('Invalid type for ' . $key . '. It should be of type : '
+                        . $this->params[$key]['type'] . ' but it has a value of : ' . $value);
+                }
+                break;
+
             default:
                 if (isset($this->params[$key]['subobject']) && $this->params[$key]['subobject']) {
                     $currentClass = get_class($value);
