@@ -51,7 +51,6 @@ class ExportDeclaration extends \Mtc\Dhl\Datatype\AM\ExportDeclaration
             'required' => false,
             'subobject' => false,
             'comment' => 'Export reason',
-            'length' => '1',
         ],
         'ExportReasonCode' => [
             'type' => 'ExportReasonCode',
@@ -59,7 +58,7 @@ class ExportDeclaration extends \Mtc\Dhl\Datatype\AM\ExportDeclaration
             'subobject' => false,
             'comment' => 'Export reason code (P:Permanent, T:Temporary, R:Re-Export)',
             'length' => '1',
-            'enumeration' => 'P,T,R',
+            'enumeration' => 'P,T,R,M,I,C,E,S,G,U,W,D,F',
         ],
         'ShipmentPurpose' => [
             'type' => 'ShipmentPurpose',
