@@ -60,12 +60,6 @@ class ExportDeclaration extends \Mtc\Dhl\Datatype\AM\ExportDeclaration
             'length' => '1',
             'enumeration' => 'P,T,R,M,I,C,E,S,G,U,W,D,F',
         ],
-        'ShipmentPurpose' => [
-            'type' => 'ShipmentPurpose',
-            'required' => false,
-            'subobject' => false,
-            'comment' => 'COMMERCIAL or PERSONAL (B2B / B2C)',
-        ],
         'SedNumber' => [
             'type' => 'SEDNumber',
             'required' => false,
@@ -81,14 +75,13 @@ class ExportDeclaration extends \Mtc\Dhl\Datatype\AM\ExportDeclaration
             'length' => '1',
             'enumeration' => 'F,X,S,I',
         ],
-        'PlaceOfIncoterm' => [
-            'type' => 'PlaceOfIncoterm',
+        'InvoiceNumber' => [
+            'type' => 'string',
             'required' => false,
             'subobject' => false,
-            'comment' => '',
         ],
-        'MxStateCode' => [
-            'type' => '',
+        'InvoiceDate' => [
+            'type' => 'dateTime',
             'required' => false,
             'subobject' => false,
         ],
@@ -99,18 +92,25 @@ class ExportDeclaration extends \Mtc\Dhl\Datatype\AM\ExportDeclaration
             'multivalues' => true,
             'disableParentNode' => true,
         ],
+        'PlaceOfIncoterm' => [
+            'type' => 'PlaceOfIncoterm',
+            'required' => true,
+            'subobject' => false,
+            'comment' => '',
+        ],
+        'ShipmentPurpose' => [
+            'type' => 'ShipmentPurpose',
+            'required' => false,
+            'subobject' => false,
+            'comment' => 'COMMERCIAL or PERSONAL (B2B / B2C)',
+        ],
+        'MxStateCode' => [
+            'type' => '',
+            'required' => false,
+            'subobject' => false,
+        ],
         'InvoiceTotalGrossWeight' => [
             'type' => 'decimal',
-            'required' => false,
-            'subobject' => false,
-        ],
-        'InvoiceNumber' => [
-            'type' => 'string',
-            'required' => false,
-            'subobject' => false,
-        ],
-        'InvoiceDate' => [
-            'type' => 'dateTime',
             'required' => false,
             'subobject' => false,
         ],

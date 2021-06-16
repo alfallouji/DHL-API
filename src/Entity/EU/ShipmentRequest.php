@@ -115,6 +115,13 @@ class ShipmentRequest extends Base
             'required' => false,
             'subobject' => true,
         ],
+        'DHLInvoiceType' => [
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+            'maxLength' => '3',
+            'comment' => 'CMI (commercial invoice) / PFI (Proforma Invoice)'
+        ],
         'ExportDeclaration' => [
             'type' => 'ExportDeclaration',
             'required' => false,
@@ -156,13 +163,6 @@ class ShipmentRequest extends Base
             'type' => 'string',
             'required' => false,
             'subobject' => false,
-        ],
-        'DHLInvoiceType' => [
-            'type' => 'string',
-            'required' => false,
-            'subobject' => false,
-            'maxLength' => '3',
-            'comment' => 'CMI (commercial invoice) / PFI (Proforma Invoice)'
         ],
         'Airwaybill' => [
             'type' => 'string',

@@ -35,18 +35,6 @@ class Shipper extends \Mtc\Dhl\Datatype\AM\Shipper
             'minLength' => '0',
             'maxLength' => '35',
         ],
-        'BusinessPartyTypeCode' => [
-            'type' => 'string',
-            'required' => false,
-            'subobject' => false,
-            'comment' => 'Possible Values:
-                - BU (business)
-                - DC (direct consumer)
-                - GV (government)
-                - OT (other)
-                - PR (private)
-                - RE (reseller)',
-        ],
         'SuiteDepartmentName' => [
             'type' => 'SuiteDepartmentName',
             'required' => false,
@@ -60,13 +48,6 @@ class Shipper extends \Mtc\Dhl\Datatype\AM\Shipper
             'subobject' => false,
             'comment' => 'DHL Account Number',
             'maxLength' => '12',
-        ],
-        'RegistrationNumbers' => [
-            'type' => 'RegistrationNumber',
-            'required' => false,
-            'subobject' => false,
-            'comment' => 'VAT Registration numbers',
-            'multivalues' => true,
         ],
         'AddressLine1' => [
             'type' => 'string',
@@ -180,6 +161,24 @@ class Shipper extends \Mtc\Dhl\Datatype\AM\Shipper
             'type' => 'Contact',
             'required' => false,
             'subobject' => true,
+        ],
+        'RegistrationNumbers' => [
+            'type' => 'RegistrationNumber',
+            'required' => false,
+            'subobject' => true,
+            'multivalues' => true,
+        ],
+        'BusinessPartyTypeCode' => [
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+            'comment' => 'Possible Values:
+                - BU (business)
+                - DC (direct consumer)
+                - GV (government)
+                - OT (other)
+                - PR (private)
+                - RE (reseller)',
         ],
     ];
 }
