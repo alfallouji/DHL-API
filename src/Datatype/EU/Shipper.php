@@ -62,11 +62,11 @@ class Shipper extends \Mtc\Dhl\Datatype\AM\Shipper
             'maxLength' => '12',
         ],
         'RegistrationNumbers' => [
-            'type' => 'RegistrationNumbers',
+            'type' => 'RegistrationNumber',
             'required' => false,
             'subobject' => false,
             'comment' => 'VAT Registration numbers',
-            'maxLength' => '12',
+            'multivalues' => true,
         ],
         'AddressLine1' => [
             'type' => 'string',

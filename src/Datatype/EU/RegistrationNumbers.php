@@ -16,6 +16,7 @@ class RegistrationNumbers extends Base
             'required' => false,
             'subobject' => false,
             'comment' => '',
+            'multivalues' => true,
         ],
     ];
 }
