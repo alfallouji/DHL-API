@@ -35,13 +35,6 @@ class Contact extends \Mtc\Dhl\Datatype\AM\Contact
             'comment' => 'Phone Number',
             'maxLength' => '25',
         ],
-        'MobilePhoneNumber' => [
-            'type' => 'PhoneNumber',
-            'required' => false,
-            'subobject' => false,
-            'comment' => 'Mobile Phone Number',
-            'maxLength' => '25',
-        ],
         'PhoneExtension' => [
             'type' => 'PhoneExtension',
             'required' => false,
@@ -69,6 +62,13 @@ class Contact extends \Mtc\Dhl\Datatype\AM\Contact
             'subobject' => false,
             'comment' => 'Email address containing \'@\'',
             'maxLength' => '50',
+        ],
+        'MobilePhoneNumber' => [
+            'type' => 'PhoneNumber',
+            'required' => false,
+            'subobject' => false,
+            'comment' => 'Mobile Phone Number',
+            'maxLength' => '25',
         ],
     ];
 }

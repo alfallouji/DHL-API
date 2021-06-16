@@ -93,6 +93,11 @@ class ExportLineItem extends \Mtc\Dhl\Datatype\AM\ExportLineItem
             'required' => false,
             'subobject' => false,
         ],
+        'GrossWeight' => [
+            'type' => '',
+            'required' => false,
+            'subobject' => false,
+        ],
         'License' => [
             'type' => '',
             'required' => false,
