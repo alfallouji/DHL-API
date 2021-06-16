@@ -62,14 +62,6 @@ class ExportLineItem extends \Mtc\Dhl\Datatype\AM\ExportLineItem
             'minLength' => '1',
             'maxLength' => '20',
         ],
-        'ImportCommodityCode' => [
-            'type' => 'ImportCommodityCode',
-            'required' => false,
-            'subobject' => false,
-            'comment' => 'Commodity codes for shipment type',
-            'minLength' => '1',
-            'maxLength' => '20',
-        ],
         'ManufactureCountryCode' => [
             'type' => 'ManufactureCountryCode',
             'required' => false,
@@ -109,6 +101,14 @@ class ExportLineItem extends \Mtc\Dhl\Datatype\AM\ExportLineItem
             'subobject' => false,
             'comment' => 'Export license number',
             'maxLength' => '16',
+        ],
+        'ImportCommodityCode' => [
+            'type' => 'ImportCommodityCode',
+            'required' => false,
+            'subobject' => false,
+            'comment' => 'Commodity codes for shipment type',
+            'minLength' => '1',
+            'maxLength' => '20',
         ],
     ];
 }
