@@ -11,7 +11,7 @@ Package should be installed through composer:
 composer require mtcmedia/dhl-api 
 ```
 
-Package requires a php min version of 7.0, however it has has been developed and tested on php 7.2.*  
+Package requires a php min version of 7.1, however it has has been developed and tested on php 7.2.*  
 
 ## Usage
 
@@ -28,11 +28,17 @@ DHL XML Services Test server for customer certification: https://xmlpitest-ea.dh
 
 [Route Requests (v1.0)](docs/route.md)
 
-[Shipment Requests (v6.2)](docs/shipment.md)
+[Shipment Requests (v10.0)](docs/shipment.md)
 
 [Pickup Request (v1.0)](docs/pickup.md)
 
 [Tracking Requests (v1.0)](docs/tracking.md)
+
+# Changelog
+
+v1.x - uses Shipment API v6.2
+
+v2.x - uses Shipment API v10.0
 
 
 ## Contributing

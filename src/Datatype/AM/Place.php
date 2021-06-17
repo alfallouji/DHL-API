@@ -13,7 +13,7 @@ class Place extends Base
      * Is this object a subobject
      * @var boolean
      */
-    protected $_isSubobject = true;
+    protected $isSubobject = true;
 
     /**
      * Parameters of the datatype
@@ -24,7 +24,8 @@ class Place extends Base
             'type' => 'ResidenceOrBusiness',
             'required' => false,
             'subobject' => false,
-            'comment' => 'Identifies if a location is a business, residence, or both (B:Business, R:Residence, C:Business Residence)',
+            'comment' => 'Identifies if a location is a business, residence, or both 
+                (B:Business, R:Residence, C:Business Residence)',
             'length' => '1',
             'enumeration' => 'B,R,C',
         ],
