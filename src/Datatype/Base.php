@@ -129,7 +129,6 @@ abstract class Base
         $xml = simplexml_load_string(str_replace('req:', '', $xml));
         $parts = explode('\\', get_class($this));
         $className = array_pop($parts);
-        dd($className);
         foreach ($xml->children() as $child) {
             $childName = $child->getName();
 
@@ -140,7 +139,6 @@ abstract class Base
                     $sub_child_name = $sub_child->getName();
                     $child_class_name = implode('\\', $parts) . '\\' . $this->params[$sub_child_name]['type'];
                     $child_class_name = str_replace('Entity', 'Datatype', $child_class_name);
-                    dd($child_class_name);
                     if ('string' == $this->params[$sub_child_name]['type']) {
                         $childObj = trim((string)$sub_child);
                     } else {
