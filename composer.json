@@ -1,5 +1,5 @@
 {
-    "name": "mtcmedia/dhl-api",
+    "name": "bambinifashion-com/dhl-api",
     "description": "PHP library to communicate with the DHL XML Services.",
     "require": {
         "php": ">=7.1",
