@@ -14,6 +14,12 @@ class ExportDeclaration extends \Mtc\Dhl\Datatype\AM\ExportDeclaration
      * @var array
      */
     protected $params = [
+        'OtherCharges' => [
+            'type' => 'OtherCharge',
+            'required' => false,
+            'subobject' => true,
+            'multivalues' => true,
+        ],
         'InterConsignee' => [
             'type' => '',
             'required' => false,
