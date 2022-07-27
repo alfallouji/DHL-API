@@ -17,19 +17,21 @@ class OtherCharge extends Base
      */
     protected $params = [
         'OtherChargeCaption' => [
-            'type' => '',
+            'type' => 'string',
             'required' => false,
             'subobject' => false,
         ],
         'OtherChargeValue' => [
-            'type' => '',
-            'required' => false,
+            'type' => 'decimal',
+            'required' => true,
             'subobject' => false,
         ],
         'OtherChargeType' => [
-            'type' => '',
-            'required' => false,
+            'type' => 'string',
+            'required' => true,
             'subobject' => false,
+            'length' => '5',
+            'enumeration' => 'ADMIN,DELIV,DOCUM,EXPED,EXCHA,FRCST,SSRGE,LOGST,SOTHR,SPKGN,PICUP,HRCRG,VATCR,INSCH,REVCH',
         ]
     ];
 }
