@@ -88,5 +88,23 @@ class Consignee extends Base
             'required' => false,
             'subobject' => true,
         ],
+        'RegistrationNumbers' => [
+            'type' => 'RegistrationNumber',
+            'required' => false,
+            'subobject' => true,
+            'multivalues' => true,
+        ],
+        'BusinessPartyTypeCode' => [
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+            'comment' => 'Possible Values:
+                - BU (business)
+                - DC (direct consumer)
+                - GV (government)
+                - OT (other)
+                - PR (private)
+                - RE (reseller)',
+        ],
     ];
 }
