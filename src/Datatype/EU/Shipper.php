@@ -22,7 +22,7 @@ class Shipper extends \Mtc\Dhl\Datatype\AM\Shipper
     protected $params = [
         'ShipperID' => [
             'type' => 'ShipperID',
-            'required' => false,
+            'required' => true,
             'subobject' => false,
             'comment' => 'Shipper\'s ID',
             'maxLength' => '30',
@@ -93,7 +93,7 @@ class Shipper extends \Mtc\Dhl\Datatype\AM\Shipper
         ],
         'City' => [
             'type' => 'City',
-            'required' => false,
+            'required' => true,
             'subobject' => false,
             'comment' => 'City name',
             'maxLength' => '35',
@@ -135,14 +135,14 @@ class Shipper extends \Mtc\Dhl\Datatype\AM\Shipper
         ],
         'CountryCode' => [
             'type' => 'CountryCode',
-            'required' => false,
+            'required' => true,
             'subobject' => false,
             'comment' => 'ISO country codes',
             'length' => '2',
         ],
         'CountryName' => [
             'type' => 'CountryName',
-            'required' => false,
+            'required' => true,
             'subobject' => false,
             'comment' => 'ISO country name',
             'maxLength' => '35',
@@ -159,7 +159,7 @@ class Shipper extends \Mtc\Dhl\Datatype\AM\Shipper
         ],
         'Contact' => [
             'type' => 'Contact',
-            'required' => false,
+            'required' => true,
             'subobject' => true,
         ],
         'RegistrationNumbers' => [
