@@ -7,3 +7,5 @@ v1.0.1 - Fixed issues with Route Requests
 v2.0.0 - Updated Shipment Validation to DHL v10
 
 v2.0.1 - Removed debugging from Datatype/Base.php
+
+v2.0.2 - introduced OtherCharges parameter

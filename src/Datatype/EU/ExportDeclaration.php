@@ -85,6 +85,12 @@ class ExportDeclaration extends \Mtc\Dhl\Datatype\AM\ExportDeclaration
             'required' => false,
             'subobject' => false,
         ],
+        'OtherCharges' => [
+            'type' => 'OtherCharge',
+            'required' => false,
+            'subobject' => true,
+            'multivalues' => true,
+        ],
         'ExportLineItems' => [
             'type' => 'ExportLineItem',
             'required' => false,
