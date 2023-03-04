@@ -58,9 +58,10 @@ class ShipmentInfo extends Base
             'subobject' => true,
         ],
         'Pieces' => [
-            'type' => '',
+            'type' => 'Piece',
             'required' => false,
             'subobject' => true,
+            'multivalues' => true,
         ],
         'Weight' => [
             'type' => 'string',
