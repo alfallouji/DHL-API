@@ -55,7 +55,7 @@ class ShipmentInfo extends Base
         'ShipmentDate' => [
             'type' => 'dateTime',
             'required' => false,
-            'subobject' => true,
+            'subobject' => false,
         ],
         'Pieces' => [
             'type' => 'Piece',
