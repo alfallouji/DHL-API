@@ -49,7 +49,7 @@ class ShipmentInfo extends \Mtc\Dhl\Datatype\AM\ShipmentInfo
         'ShipmentDate' => [
             'type' => 'dateTime',
             'required' => false,
-            'subobject' => true,
+            'subobject' => false,
         ],
         'Pieces' => [
             'type' => 'Piece',
