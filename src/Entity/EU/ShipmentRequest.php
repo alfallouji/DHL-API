@@ -115,6 +115,19 @@ class ShipmentRequest extends Base
             'required' => false,
             'subobject' => true,
         ],
+        'UseDHLInvoice' => [
+	        'type' => 'string',
+	        'required' => false,
+	        'subobject' => false,
+	        'enumeration' => 'Y,N',
+        ],
+        'DHLInvoiceLanguageCode' => [
+	        'type' => 'string',
+	        'required' => false,
+	        'subobject' => false,
+	        'comment' => 'ISO Language Code',
+	        'maxLength' => '2',
+        ],
         'DHLInvoiceType' => [
             'type' => 'string',
             'required' => false,
